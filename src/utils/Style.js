@@ -82,7 +82,9 @@ export default Style = StyleSheet.create({
   },
   HomeBox: {
     width: '92%',
-    height: 150,
+    paddingHorizontal: 3,
+    overflow: 'hidden',
+    height: 'auto',
     alignItems: 'center',
     margin: 'auto',
     justifyContent: 'space-between',

@@ -1,17 +1,21 @@
-import {View, FlatList, BackHandler} from 'react-native';
+import {View, BackHandler, RefreshControl} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import MainHeader from '../components/headers/MainHeader';
+import SwipeableFlatList from 'react-native-swipeable-list';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import ListData from '../Data/ListData';
+import apiCaller from '../api/APICaller';
+import MainHeader from '../components/headers/MainHeader';
 import Row from '../components/listcmp/Row';
 import Heading from '../components/listcmp/Heading';
-import LogoutBtn from '../components/homecmp/LogoutBtn';
+import Loading from '../components/loading/Loading';
 
 export default function List() {
   const navigation = useNavigation();
   const route = useRoute();
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState();
+  const [data, setData] = useState();
+  const [completeData, setCompleteData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     const backAction = () => {
@@ -25,7 +29,40 @@ export default function List() {
     return () => backHandler.remove();
   }, []);
 
-  useEffect(() => {}, [searchQuery]);
+  useEffect(() => {
+    const data = async () => {
+      setIsLoading(true);
+      await apiCaller
+        .ListData(route.params.Category)
+        .then(resData => {
+          if (resData) {
+            setData(resData.Data);
+            setCompleteData(resData.Data);
+          }
+        })
+        .then(() => {
+          setIsLoading(false);
+          setRefreshing(false);
+        });
+    };
+    data();
+  }, [refreshing]);
+
+  useEffect(() => {
+    setData(
+      completeData.filter(
+        item =>
+          item.RequestorDept.toLowerCase().includes(
+            searchQuery.toLowerCase(),
+          ) ||
+          item.DocumentNo.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    );
+  }, [searchQuery]);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+  };
 
   if (isLoading) {
     return (
@@ -43,13 +80,16 @@ export default function List() {
         setSearchQuery={setSearchQuery}
       />
       <Heading item={{dep: 'Dep.', number: 'PR number', value: 'PR value'}} />
-      <FlatList
-        data={ListData}
+      <SwipeableFlatList
+        data={data}
         contentContainerStyle={{}}
         renderItem={({item}) => <Row item={item} />}
         style={{marginBottom: 'auto'}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        keyExtractor={(item, index) => index.toString()}
       />
-      <LogoutBtn />
     </View>
   );
 }

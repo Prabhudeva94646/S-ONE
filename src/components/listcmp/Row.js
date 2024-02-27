@@ -13,9 +13,9 @@ export default function Row({item}) {
         onPress={() => {
           navigation.navigate('ApprovalDetail');
         }}>
-        <Text style={Style.listText}>{item.dep}</Text>
-        <Text style={Style.listText}>{item.number}</Text>
-        <Text style={Style.listText}>{item.value}</Text>
+        <Text style={Style.listText}>{item.RequestorDept}</Text>
+        <Text style={Style.listText}>{item.DocumentNo}</Text>
+        <Text style={Style.listText}>{item.ApprovalValue}</Text>
       </TouchableOpacity>
     </View>
   );

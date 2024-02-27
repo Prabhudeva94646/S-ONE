@@ -1,10 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, BackHandler, Alert} from 'react-native';
+import {
+  View,
+  BackHandler,
+  Alert,
+  RefreshControl,
+  Dimensions,
+} from 'react-native';
+import SwipeableFlatList from 'react-native-swipeable-list';
 import HomeBox from '../components/homecmp/HomeBox';
 import Header from '../components/headers/Header';
-import homeAPI from '../api/Homeapi';
+import apiCaller from '../api/APICaller';
 import Loading from '../components/loading/Loading';
-import LogoutBtn from '../components/homecmp/LogoutBtn';
 
 export default function Home() {
   useEffect(() => {
@@ -28,31 +34,64 @@ export default function Home() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState([]);
-  const [Completedata, setCompleteData] = useState([]);
+  const [completeData, setCompleteData] = useState([]);
   const [isLoading, setIsLoading] = useState();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    homeAPI.getCategoryData().then(resData => {
-      if (resData) {
-        setData(resData);
-        setCompleteData(resData);
-        setIsLoading(false);
-      }
-    });
-  }, []);
+    const data = async () => {
+      setIsLoading(true);
+      await apiCaller
+        .HomeData()
+        .then(resData => {
+          if (resData) {
+            setData(resData.data);
+            setCompleteData(resData.data);
+            // setIsLoading(false);
+          }
+        })
+        .then(() => {
+          setIsLoading(false);
+          setRefreshing(false);
+        });
+    };
+    data();
+  }, [refreshing]);
+
+  // const checkString = str => {
+  //   if (str.includes('PO Approval')) {
+  //     return 'PO Approval';
+  //   } else if (str.includes('PR Approval')) {
+  //     return 'PR Approval';
+  //   } else if (str.includes('Budget')) {
+  //     return 'Budget';
+  //   } else if (str.includes('Others')) {
+  //     return 'Others';
+  //   } else {
+  //     return str; // return original string if no match found
+  //   }
+  // };
+
+  // const categorizedData = data.map(item => ({
+  //   ApprovalCategory: checkString(item.ApprovalCategory),
+  //   PendingCount: item.PendingCount,
+  // }));
 
   useEffect(() => {
     setData(
-      Completedata.filter(function (item) {
-        return item.Category.toLowerCase().indexOf(searchQuery) > -1;
-      }),
+      completeData.filter(item =>
+        item.ApprovalCategory.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
     );
   }, [searchQuery]);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+  };
+
   if (isLoading) {
     return (
-      <View>
+      <View style={{}}>
         <Loading />
       </View>
     );
@@ -60,20 +99,27 @@ export default function Home() {
   return (
     <View>
       <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <FlatList
+      <SwipeableFlatList
         data={data}
         contentContainerStyle={{paddingBottom: 25}}
         renderItem={({item}) => (
           <HomeBox
-            Category={item.Category}
-            number={item.count}
+            Category={item.ApprovalCategory}
+            number={item.PendingCount}
             nt={'BoxList'}
-            prop={{Category: item.Category}}
+            prop={{Category: item.ApprovalCategory}}
           />
         )}
-        style={{paddingTop: 25, marginBottom: 'auto'}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        keyExtractor={(item, index) => index.toString()}
+        style={{
+          paddingTop: 25,
+          marginBottom: 'auto',
+          height: Dimensions.get('window').height,
+        }}
       />
-      <LogoutBtn />
     </View>
   );
 }

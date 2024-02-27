@@ -1,13 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from './screens/Home';
-import Login from './screens/Login';
-import List from './screens/List';
-import BoxList from './screens/BoxList';
-import BoxList2 from './screens/BoxList2';
-import ApprovalDetail from './screens/ApprovalDetail';
-import Response from './screens/Response';
+import Home from './screens/Home.js';
+import Login from './screens/Login.js';
+import List from './screens/List.js';
+import BoxList from './screens/BoxList.js';
+import BoxList2 from './screens/BoxList2.js';
+import ApprovalDetail from './screens/ApprovalDetail.js';
+import Response from './screens/Response.js';
 
 const Stack = createNativeStackNavigator();
 

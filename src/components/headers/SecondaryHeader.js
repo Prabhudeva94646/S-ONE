@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import Style from '../../utils/Style';
+import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
@@ -14,9 +15,14 @@ export default function SecondaryHeader({cp, tp, inav, nfun, bfun, prop}) {
         {justifyContent: 'flex-start', alignItems: 'center'},
       ]}>
       <TouchableOpacity
+        activeOpacity={0.6}
         onPress={() => navigation.navigate(prop)}
         style={{paddingLeft: 20, width: '20%', position: 'absolute'}}>
-        <Icon name="backspace" size={23} color={Colors.GRAY} />
+        <Image
+          source={Images.BUTTONS.BACK_BTN}
+          style={{width: 30, height: 26}}
+        />
+        {/* <Icon name="backspace" size={23} color={Colors.GRAY} /> */}
       </TouchableOpacity>
       {inav === true ? (
         <View

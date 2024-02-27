@@ -1,7 +1,7 @@
 import HomeData from '../Data/HomeData';
 import Data from '../Data/Data';
 export class HomeAPI {
-  async getCategoryData() {
+  async HomeData() {
     try {
       const res = {};
       HomeData.forEach(obj => {

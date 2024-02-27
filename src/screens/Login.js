@@ -16,6 +16,8 @@ import style from '../utils/Style';
 import Colors from '../utils/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
+import apiCaller from '../api/APICaller';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Login() {
   const navigation = useNavigation();
@@ -57,7 +59,7 @@ function Login() {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) {
       result += characters.charAt(
         Math.floor(Math.random() * characters.length),
       );
@@ -74,7 +76,7 @@ function Login() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (userData.empcode === '') {
       setError(true);
       setErrorMsg('Please enter your Employee Code.');
@@ -92,9 +94,23 @@ function Login() {
       setUserData({...userData, captcha: ''});
       return;
     }
-    setUserData({captcha: '', empcode: '', isChecked: false, psw: ''});
-    setIsChecked(false);
-    navigation.replace('Home');
+
+    const res = await apiCaller.AuthenticateUser(
+      userData.empcode,
+      userData.psw,
+    );
+
+    if (res.Status === 'Authenticated') {
+      setUserData({captcha: '', empcode: '', isChecked: false, psw: ''});
+      setIsChecked(false);
+      await AsyncStorage.setItem('employeeCode', userData.empcode);
+      await AsyncStorage.setItem('employeeName', res.EmpName);
+      navigation.replace('Home');
+    } else {
+      setError(true);
+      setErrorMsg(res.Status);
+      return;
+    }
   };
 
   return (
@@ -190,6 +206,7 @@ function Login() {
               </ImageBackground>
               <TouchableOpacity
                 style={{width: '15%', alignItems: 'center'}}
+                activeOpacity={0.6}
                 onPress={() => refreshString()}>
                 <Icon name="refresh" size={20} color={Colors.GRAY} />
               </TouchableOpacity>
