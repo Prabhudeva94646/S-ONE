@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Dimensions, BackHandler } from 'react-native';
 import Colors from '../../utils/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function SidePanel({setMenuToggle, menuToggle}) {
+export default function SidePanel({ setMenuToggle, menuToggle }) {
   const navigation = useNavigation();
   const [userName, setUserName] = useState('');
 
@@ -22,7 +22,21 @@ export default function SidePanel({setMenuToggle, menuToggle}) {
     };
 
     getUserName();
-  }, []);
+
+    // Add event listener for hardware back button
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (menuToggle) {
+        setMenuToggle(false); // Close the side panel if it's open
+        return true; // Prevent default behavior
+      }
+      // Return false to let the default back button behavior take over
+      return false;
+    });
+
+    // Cleanup function to remove event listener
+    return () => backHandler.remove();
+  }, [menuToggle, setMenuToggle]);
+
   return (
     <View
       style={{
@@ -32,11 +46,11 @@ export default function SidePanel({setMenuToggle, menuToggle}) {
         height: Dimensions.get('window').height,
         zIndex: 1,
         elevation: 1,
-        borderLeftWidth: 1,
-        borderLeftColor: Colors.BLACK,
+        borderRightWidth: 1,
+        borderRightColor: Colors.WHITE,
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginLeft: '40%',
+        marginRight: '40%',
       }}>
       <View
         style={{
@@ -44,11 +58,11 @@ export default function SidePanel({setMenuToggle, menuToggle}) {
           height: 70,
           width: '100%',
           justifyContent: 'center',
-          alignItems: 'flex-end',
+          alignItems: 'flex-start',
         }}>
         <View
           style={{
-            marginRight: 15,
+            marginLeft: 15,
           }}>
           <Icon3
             name="menu"
@@ -61,7 +75,7 @@ export default function SidePanel({setMenuToggle, menuToggle}) {
           />
         </View>
       </View>
-      <View style={{alignItems: 'center', marginTop: 90}}>
+      <View style={{ alignItems: 'center', marginTop: 90 }}>
         <Icon
           name="user"
           size={60}
@@ -74,7 +88,7 @@ export default function SidePanel({setMenuToggle, menuToggle}) {
             width: 83,
           }}
         />
-        <Text style={{color: Colors.BLACK, fontSize: 17, marginTop: 10}}>
+        <Text style={{ color: Colors.BLACK, fontSize: 17, marginTop: 10 }}>
           Hi, {userName}
         </Text>
       </View>

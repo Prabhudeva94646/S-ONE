@@ -14,6 +14,20 @@ export default function Header({searchQuery, setSearchQuery}) {
         <SidePanel menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
       ) : null}
       <View style={Style.Header}>
+        <View
+          style={{
+            width: '10%',
+            alignItems: 'center',
+          }}>
+          <Icon
+            name="menu"
+            size={28}
+            color={Colors.GRAY}
+            onPress={() => {
+              setMenuToggle(!menuToggle);
+            }}
+          />
+        </View>
         <View style={{width: '40%'}}>
           <Image
             source={Images.LOGOS.SLOGO}
@@ -51,23 +65,6 @@ export default function Header({searchQuery, setSearchQuery}) {
             />
           ) : null}
         </View>
-        <View
-          style={{
-            width: '10%',
-            alignItems: 'center',
-          }}>
-          <Icon
-            name="menu"
-            size={28}
-            color={Colors.GRAY}
-            onPress={() => {
-              setMenuToggle(!menuToggle);
-            }}
-          />
-        </View>
-        {/* <TouchableOpacity style={{width: '10%', alignItems: 'center'}}>
-          <Icon name="menu" size={25} color={Colors.GRAY} />
-        </TouchableOpacity> */}
       </View>
     </View>
   );
