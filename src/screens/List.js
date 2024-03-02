@@ -1,7 +1,7 @@
-import {View, BackHandler, RefreshControl} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { View, Text, BackHandler, RefreshControl } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import SwipeableFlatList from 'react-native-swipeable-list';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import apiCaller from '../api/APICaller';
 import MainHeader from '../components/headers/MainHeader';
 import Row from '../components/listcmp/Row';
@@ -30,7 +30,7 @@ export default function List() {
   }, []);
 
   useEffect(() => {
-    const data = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       await apiCaller
         .ListData(route.params.Category)
@@ -45,7 +45,7 @@ export default function List() {
           setRefreshing(false);
         });
     };
-    data();
+    fetchData();
   }, [refreshing]);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function List() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <Heading item={{dep: 'Dep.', number: 'PR number', value: 'PR value'}} />
+      <Heading item={{dep: 'Dept.', number: 'Doc. No.', value: 'App. value'}} />
       <SwipeableFlatList
         data={data}
         contentContainerStyle={{}}
@@ -90,6 +90,9 @@ export default function List() {
         }
         keyExtractor={(item, index) => index.toString()}
       />
+      <View style={{ padding: 10 }}>
+        <Text>Route Params: {JSON.stringify(route.params)}</Text>
+      </View>
     </View>
   );
 }
