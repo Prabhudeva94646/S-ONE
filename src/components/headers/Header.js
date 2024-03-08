@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Image, TextInput, TouchableOpacity} from 'react-native';
+import {View, Image, TextInput} from 'react-native';
 import Style from '../../utils/Style';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';

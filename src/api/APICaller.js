@@ -45,6 +45,31 @@ export class APICaller {
       throw new Error('Error While fetching Data!!');
     }
   }
+
+  async TableData(DocumentNo, ApprovalCategory) {
+    try {
+      const res = await fetch(
+        `https://apps.sonalika.com:7007/WebService/api/SONE/GetDocumentDetails?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
+        {method: 'GET'},
+      );
+      return res.json();
+    } catch (error) {
+      console.error('Error occurred during data fetching:', error);
+      throw new Error('Error While fetching Data!!');
+    }
+  }
+  async approvalHistory(DocumentNo, ApprovalCategory) {
+    try {
+      const res = await fetch(
+        `https://apps.sonalika.com:7007/WebService/api/SONE/GetApprovalHistory?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
+        {method: 'GET'},
+      );
+      return res.json();
+    } catch (error) {
+      console.error('Error occurred during data fetching:', error);
+      throw new Error('Error While fetching Data!!');
+    }
+  }
 }
 
 const apiCaller = new APICaller();

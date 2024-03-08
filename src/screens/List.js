@@ -1,7 +1,7 @@
-import { View, Text, BackHandler, RefreshControl } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import {View, Text, BackHandler, RefreshControl} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import SwipeableFlatList from 'react-native-swipeable-list';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import apiCaller from '../api/APICaller';
 import MainHeader from '../components/headers/MainHeader';
 import Row from '../components/listcmp/Row';
@@ -40,7 +40,7 @@ export default function List() {
             setCompleteData(resData.Data);
           }
         })
-        .then(() => {
+        .finally(() => {
           setIsLoading(false);
           setRefreshing(false);
         });
@@ -83,14 +83,16 @@ export default function List() {
       <SwipeableFlatList
         data={data}
         contentContainerStyle={{}}
-        renderItem={({item}) => <Row item={item} />}
+        renderItem={({item}) => (
+          <Row item={item} prop={route.params.Category} />
+        )}
         style={{marginBottom: 'auto'}}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         keyExtractor={(item, index) => index.toString()}
       />
-      <View style={{ padding: 10 }}>
+      <View style={{padding: 10}}>
         <Text>Route Params: {JSON.stringify(route.params)}</Text>
       </View>
     </View>

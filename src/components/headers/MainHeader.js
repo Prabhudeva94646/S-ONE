@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { View, TextInput, Image } from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput} from 'react-native';
 import Style from '../../utils/Style';
-import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import SidePanel from './SidePanel';
 
-export default function MainHeader({ prop, searchQuery, setSearchQuery }) {
+export default function MainHeader({prop, searchQuery, setSearchQuery}) {
   const navigation = useNavigation();
   const [menuToggle, setMenuToggle] = useState(false);
 
@@ -18,7 +17,7 @@ export default function MainHeader({ prop, searchQuery, setSearchQuery }) {
       ) : null}
       <View style={Style.Header}>
         {/* Shifted menu view to the beginning */}
-        <View style={{ width: '10%', alignItems: 'center' }}>
+        <View style={{width: '10%', alignItems: 'center'}}>
           <Icon
             name="menu"
             size={28}
@@ -28,7 +27,7 @@ export default function MainHeader({ prop, searchQuery, setSearchQuery }) {
             }}
           />
         </View>
-        <View style={[Style.search, { width: '82%', marginHorizontal: '4%' }]}>
+        <View style={[Style.search, {width: '82%', marginHorizontal: '4%'}]}>
           <Icon name="search" size={22} color={Colors.BLACK} />
           <TextInput
             placeholder="Search"
