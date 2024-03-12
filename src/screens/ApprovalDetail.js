@@ -1,15 +1,12 @@
 import {View, FlatList, BackHandler} from 'react-native';
 import React, {useState, useRef, useCallback, useEffect} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import apiCaller from '../api/APICaller';
+import {useNavigation} from '@react-navigation/native';
+import HomeData from '../Data/SampleData';
 import Form from '../components/approvalDetails/Form';
 import SecondaryHeader from '../components/headers/SecondaryHeader';
 
 export default function ApprovalDetail() {
   const navigation = useNavigation();
-  const route = useRoute();
-  const [len, setLen] = useState(0);
-  const [data, setData] = useState();
   useEffect(() => {
     const backAction = () => {
       navigation.goBack();
@@ -22,18 +19,7 @@ export default function ApprovalDetail() {
     return () => backHandler.remove();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await apiCaller.ListData(route.params).then(resData => {
-        if (resData) {
-          setData(resData.Data);
-          setLen(resData.Data.length);
-        }
-      });
-    };
-    fetchData();
-  }, []);
-
+  const len = HomeData.length;
   const flatListRef = useRef(null);
 
   const [currentSectionIndex, setCurrentSectionIndex] = useState(1);
@@ -73,12 +59,10 @@ export default function ApprovalDetail() {
       />
       <FlatList
         ref={flatListRef}
-        data={data}
-        renderItem={({item}) => (
-          <Form DocumentNo={item.DocumentNo} ApprovalCategory={route.params} />
-        )}
+        data={HomeData}
+        renderItem={({item}) => <Form name={item.name} number={item.number} />}
         onViewableItemsChanged={onScroll}
-        keyExtractor={data => data.DocumentNo}
+        keyExtractor={item => item.id}
         horizontal
         pagingEnabled
         snapToAlignment="center"

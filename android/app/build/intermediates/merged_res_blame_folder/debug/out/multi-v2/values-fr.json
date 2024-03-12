@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.awesome01.app-mergeDebugResources-34:/values-fr/values-fr.xml",
+            "outputFile": "com.awesome01.app-mergeDebugResources-35:/values-fr/values-fr.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\d3a8a24834f295d8078f18b8298041f7\\transformed\\material-1.9.0\\res\\values-fr\\values-fr.xml",
@@ -54,6 +54,23 @@
                         "startOffsets": "3075,3593,3994,4240,4393,4542,5614,5693,8762,8852,8944,9015,9189,9264,9351,9431,9511,9586,9663,9736,9928,10007,10088,10160",
                         "endColumns": "69,87,82,69,82,66,78,81,89,91,70,86,74,86,79,79,74,76,72,90,78,80,71,79",
                         "endOffsets": "3140,3676,4072,4305,4471,4604,5688,5770,8847,8939,9010,9097,9259,9346,9426,9506,9581,9658,9731,9822,10002,10083,10155,10235"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\0d5200e7c6f2e02eefb8483dce46a169\\transformed\\jetified-ucrop-2.2.6-native\\res\\values-fr\\values-fr.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,124,182",
+                        "endColumns": "68,57,52",
+                        "endOffsets": "119,177,230"
+                    },
+                    "to": {
+                        "startLines": "121,122,123",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "10240,10309,10367",
+                        "endColumns": "68,57,52",
+                        "endOffsets": "10304,10362,10415"
                     }
                 },
                 {

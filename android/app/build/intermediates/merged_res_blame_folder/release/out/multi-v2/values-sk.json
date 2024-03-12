@@ -1,8 +1,25 @@
 {
     "logs": [
         {
-            "outputFile": "com.awesome01.app-mergeReleaseResources-32:/values-sk/values-sk.xml",
+            "outputFile": "com.awesome01.app-mergeReleaseResources-33:/values-sk/values-sk.xml",
             "map": [
+                {
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\49dec44c7f4f52ba209b4123ec2a3f69\\transformed\\jetified-ucrop-2.2.6-native\\res\\values-sk\\values-sk.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,182",
+                        "endColumns": "69,56,50",
+                        "endOffsets": "120,177,228"
+                    },
+                    "to": {
+                        "startLines": "126,127,128",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "10365,10435,10492",
+                        "endColumns": "69,56,50",
+                        "endOffsets": "10430,10487,10538"
+                    }
+                },
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\422cfa1e245fafdbb33e84aae52e63c3\\transformed\\appcompat-1.6.1\\res\\values-sk\\values-sk.xml",
                     "from": {

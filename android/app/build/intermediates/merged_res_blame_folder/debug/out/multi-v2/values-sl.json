@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.awesome01.app-mergeDebugResources-34:/values-sl/values-sl.xml",
+            "outputFile": "com.awesome01.app-mergeDebugResources-35:/values-sl/values-sl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\d3a8a24834f295d8078f18b8298041f7\\transformed\\material-1.9.0\\res\\values-sl\\values-sl.xml",

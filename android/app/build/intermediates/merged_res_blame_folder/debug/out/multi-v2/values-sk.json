@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.awesome01.app-mergeDebugResources-34:/values-sk/values-sk.xml",
+            "outputFile": "com.awesome01.app-mergeDebugResources-35:/values-sk/values-sk.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\b3627ca143232ec2ceb6e319eb18971d\\transformed\\appcompat-1.6.1\\res\\values-sk\\values-sk.xml",
@@ -35,6 +35,23 @@
                         "startOffsets": "9960",
                         "endColumns": "100",
                         "endOffsets": "10056"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\0d5200e7c6f2e02eefb8483dce46a169\\transformed\\jetified-ucrop-2.2.6-native\\res\\values-sk\\values-sk.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,182",
+                        "endColumns": "69,56,50",
+                        "endOffsets": "120,177,228"
+                    },
+                    "to": {
+                        "startLines": "126,127,128",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "10365,10435,10492",
+                        "endColumns": "69,56,50",
+                        "endOffsets": "10430,10487,10538"
                     }
                 },
                 {

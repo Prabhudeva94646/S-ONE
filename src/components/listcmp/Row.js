@@ -3,7 +3,7 @@ import React from 'react';
 import Style from '../../utils/Style';
 import {useNavigation} from '@react-navigation/native';
 
-export default function Row({item, prop}) {
+export default function Row({item}) {
   const navigation = useNavigation();
   return (
     <View>
@@ -11,7 +11,7 @@ export default function Row({item, prop}) {
         style={Style.row}
         activeOpacity={0.5}
         onPress={() => {
-          navigation.navigate('ApprovalDetail', prop);
+          navigation.navigate('ApprovalDetail');
         }}>
         <Text style={Style.listText}>{item.RequestorDept}</Text>
         <Text style={Style.listText}>{item.DocumentNo}</Text>

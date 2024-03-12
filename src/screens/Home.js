@@ -1,18 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  BackHandler,
-  Alert,
-  RefreshControl,
-  Dimensions,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, BackHandler, Alert, RefreshControl, Dimensions } from 'react-native';
 import SwipeableFlatList from 'react-native-swipeable-list';
 import HomeBox from '../components/homecmp/HomeBox';
 import Header from '../components/headers/Header';
 import apiCaller from '../api/APICaller';
 import Loading from '../components/loading/Loading';
 
-export default function Home() {
+export default function Home({ navigation }) {
   useEffect(() => {
     const backAction = () => {
       Alert.alert('Hold on!', 'Are you sure you want to Exit App?', [
@@ -21,7 +15,7 @@ export default function Home() {
           onPress: () => null,
           style: 'cancel',
         },
-        {text: 'YES', onPress: () => BackHandler.exitApp()},
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
       ]);
       return true;
     };
@@ -39,7 +33,7 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    const data = async () => {
+    const fetchData = async () => {
       setIsLoading(true);
       await apiCaller
         .HomeData()
@@ -47,35 +41,15 @@ export default function Home() {
           if (resData) {
             setData(resData.data);
             setCompleteData(resData.data);
-            // setIsLoading(false);
           }
         })
-        .then(() => {
+        .finally(() => {
           setIsLoading(false);
           setRefreshing(false);
         });
     };
-    data();
+    fetchData();
   }, [refreshing]);
-
-  // const checkString = str => {
-  //   if (str.includes('PO Approval')) {
-  //     return 'PO Approval';
-  //   } else if (str.includes('PR Approval')) {
-  //     return 'PR Approval';
-  //   } else if (str.includes('Budget')) {
-  //     return 'Budget';
-  //   } else if (str.includes('Others')) {
-  //     return 'Others';
-  //   } else {
-  //     return str; // return original string if no match found
-  //   }
-  // };
-
-  // const categorizedData = data.map(item => ({
-  //   ApprovalCategory: checkString(item.ApprovalCategory),
-  //   PendingCount: item.PendingCount,
-  // }));
 
   useEffect(() => {
     setData(
@@ -89,6 +63,10 @@ export default function Home() {
     setRefreshing(true);
   };
 
+  const toggleDrawer = () => {
+    navigation.toggleDrawer(); // Function to toggle the navigation drawer
+  };
+
   if (isLoading) {
     return (
       <View style={{}}>
@@ -98,16 +76,16 @@ export default function Home() {
   }
   return (
     <View>
-      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} toggleMenu={toggleDrawer} />
       <SwipeableFlatList
         data={data}
-        contentContainerStyle={{paddingBottom: 25}}
-        renderItem={({item}) => (
+        contentContainerStyle={{ paddingBottom: 25 }}
+        renderItem={({ item }) => (
           <HomeBox
             Category={item.ApprovalCategory}
             number={item.PendingCount}
             nt={'BoxList'}
-            prop={{Category: item.ApprovalCategory}}
+            prop={{ Category: item.ApprovalCategory }}
           />
         )}
         refreshControl={

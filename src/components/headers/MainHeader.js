@@ -1,33 +1,33 @@
-import React, {useState} from 'react';
-import {View, TextInput} from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput } from 'react-native';
 import Style from '../../utils/Style';
 import Colors from '../../utils/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation} from '@react-navigation/native';
-import SidePanel from './SidePanel';
+import { useNavigation } from '@react-navigation/native';
 
-export default function MainHeader({prop, searchQuery, setSearchQuery}) {
+export default function MainHeader({ searchQuery, setSearchQuery }) {
   const navigation = useNavigation();
   const [menuToggle, setMenuToggle] = useState(false);
 
+  const toggleDrawer = () => {
+    navigation.toggleDrawer();
+    setMenuToggle(!menuToggle); // Toggle the menu state
+  };
+
   return (
     <View>
-      {menuToggle ? (
-        <SidePanel menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
-      ) : null}
       <View style={Style.Header}>
-        {/* Shifted menu view to the beginning */}
-        <View style={{width: '10%', alignItems: 'center'}}>
+        {/* Menu view */}
+        <View style={{ width: '10%', alignItems: 'center' }}>
           <Icon
             name="menu"
             size={28}
             color={Colors.GRAY}
-            onPress={() => {
-              setMenuToggle(!menuToggle);
-            }}
+            onPress={toggleDrawer} // Call toggleDrawer function onPress
           />
         </View>
-        <View style={[Style.search, {width: '82%', marginHorizontal: '4%'}]}>
+        {/* Search view */}
+        <View style={[Style.search, { width: '82%', marginHorizontal: '4%' }]}>
           <Icon name="search" size={22} color={Colors.BLACK} />
           <TextInput
             placeholder="Search"
@@ -46,7 +46,7 @@ export default function MainHeader({prop, searchQuery, setSearchQuery}) {
               setSearchQuery(query);
             }}
           />
-          {searchQuery != '' ? (
+          {searchQuery !== '' && (
             <Icon
               name="highlight-remove"
               size={22}
@@ -55,7 +55,7 @@ export default function MainHeader({prop, searchQuery, setSearchQuery}) {
               }}
               color={Colors.BLACK}
             />
-          ) : null}
+          )}
         </View>
       </View>
     </View>

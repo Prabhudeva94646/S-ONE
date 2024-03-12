@@ -117,4 +117,7 @@
     <string gender="unknown" name="summary_description">Übersicht</string>
     <string gender="unknown" name="tablist_description">Tab-Liste</string>
     <string gender="unknown" name="toolbar_description">Symbolleiste</string>
+    <string name="ucrop_label_edit_photo">Foto editieren</string>
+    <string name="ucrop_label_original">Original</string>
+    <string name="ucrop_menu_crop">Zuschneiden</string>
 </resources>

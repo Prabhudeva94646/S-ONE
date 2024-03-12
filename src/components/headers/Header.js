@@ -1,40 +1,30 @@
-import React, {useState} from 'react';
-import {View, Image, TextInput} from 'react-native';
+import React from 'react';
+import { View, Image, TextInput, TouchableOpacity } from 'react-native';
 import Style from '../../utils/Style';
 import Images from '../../utils/Images';
 import Colors from '../../utils/Colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SidePanel from './SidePanel';
 
-export default function Header({searchQuery, setSearchQuery}) {
-  const [menuToggle, setMenuToggle] = useState(false);
+export default function Header({ searchQuery, setSearchQuery, toggleMenu }) {
   return (
     <View>
-      {menuToggle ? (
-        <SidePanel menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
-      ) : null}
       <View style={Style.Header}>
-        <View
-          style={{
-            width: '10%',
-            alignItems: 'center',
-          }}>
+        <View style={{ width: '10%', alignItems: 'center' }}>
           <Icon
             name="menu"
             size={28}
             color={Colors.GRAY}
-            onPress={() => {
-              setMenuToggle(!menuToggle);
-            }}
+            onPress={toggleMenu} // Call the toggleMenu function when the menu button is pressed
           />
         </View>
-        <View style={{width: '40%'}}>
+        <View style={{ width: '40%' }}>
           <Image
             source={Images.LOGOS.SLOGO}
-            style={{width: '100%', height: '100%'}}
+            style={{ width: '100%', height: '100%' }}
           />
         </View>
-        <View style={[Style.search, {width: '50%'}]}>
+        <View style={[Style.search, { width: '50%' }]}>
           <Icon name="search" size={22} color={Colors.BLACK} />
           <TextInput
             placeholder="Search"

@@ -4,7 +4,7 @@ import MainHeader from '../components/headers/MainHeader';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import TopBox from '../components/arrowscreen/TopBox';
 import Loading from '../components/loading/Loading';
-import HomeBox from '../components/homecmp/HomeBox';
+import HomeBox from '../components/homecmp/BoxListBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SwipeableFlatList from 'react-native-swipeable-list';
 
@@ -13,6 +13,11 @@ const TOKEN = 'uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrF
 export default function BoxList() {
   const navigation = useNavigation();
   const route = useRoute();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filteredData, setFilteredData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     const backAction = () => {
@@ -26,47 +31,41 @@ export default function BoxList() {
     return () => backHandler.remove();
   }, []);
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [filteredData, setFilteredData] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const EmpCode = await AsyncStorage.getItem('employeeCode');
-        const response = await fetch(
-          `https://apps.sonalika.com:7007/WebService/api/SONE/GetPendingApprovalsList?EmpCode=${EmpCode}&ApprovalCategory=${route.params.Category}&Token=${TOKEN}`
-        );
-        const responseData = await response.json();
-        if (responseData.HasPendingApprovals) {
-          const countMap = {};
-          const uniqueData = [];
-          responseData.Data.forEach(item => {
-            if (!countMap[item.RequestorDept]) {
-              countMap[item.RequestorDept] = 1;
-              uniqueData.push(item);
-            } else {
-              countMap[item.RequestorDept]++;
-            }
-          });
-          const mappedData = uniqueData.map(item => ({
-            ...item,
-            count: countMap[item.RequestorDept],
-          }));
-          setData(mappedData);
-          setFilteredData(mappedData);
-        }
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchData();
   }, [route.params.Category]);
+
+  const fetchData = async () => {
+    try {
+      const EmpCode = await AsyncStorage.getItem('employeeCode');
+      const response = await fetch(
+        `https://apps.sonalika.com:7007/WebService/api/SONE/GetPendingApprovalsList?EmpCode=${EmpCode}&ApprovalCategory=${route.params.Category}&Token=${TOKEN}`
+      );
+      const responseData = await response.json();
+      if (responseData.HasPendingApprovals) {
+        const countMap = {};
+        const uniqueData = [];
+        responseData.Data.forEach(item => {
+          if (!countMap[item.RequestorDept]) {
+            countMap[item.RequestorDept] = 1;
+            uniqueData.push(item);
+          } else {
+            countMap[item.RequestorDept]++;
+          }
+        });
+        const mappedData = uniqueData.map(item => ({
+          ...item,
+          count: countMap[item.RequestorDept],
+        }));
+        setData(mappedData);
+        setFilteredData(mappedData);
+      }
+    } catch (error) {
+      console.error('Error fetching data: ', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (route.params && route.params.department) {
@@ -109,42 +108,14 @@ export default function BoxList() {
   const handleReload = async () => {
     setRefreshing(true);
     try {
-      const EmpCode = await AsyncStorage.getItem('employeeCode');
-      const response = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetPendingApprovalsList?EmpCode=${EmpCode}&ApprovalCategory=${route.params.Category}&Token=${TOKEN}`
-      );
-      const responseData = await response.json();
-      if (responseData.HasPendingApprovals) {
-        const countMap = {};
-        const uniqueData = [];
-        responseData.Data.forEach(item => {
-          if (!countMap[item.RequestorDept]) {
-            countMap[item.RequestorDept] = 1;
-            uniqueData.push(item);
-          } else {
-            countMap[item.RequestorDept]++;
-          }
-        });
-        const mappedData = uniqueData.map(item => ({
-          ...item,
-          count: countMap[item.RequestorDept],
-        }));
-        setData(mappedData);
-        setFilteredData(mappedData);
-      }
-    } catch (error) {
-      console.error('Error fetching data: ', error);
+      await fetchData();
     } finally {
       setRefreshing(false);
     }
   };
 
   if (isLoading) {
-    return (
-      <View>
-        <Loading />
-      </View>
-    );
+    return <Loading />;
   }
 
   return (

@@ -12,4 +12,5 @@ export default Colors = {
   SEARCHBG: '#E0E0E0',
   TRANSPARENT: 'rgba(255, 255, 255, 0)',
   RED: '#DC3545',
+  GREEN: '#90EE90'
 };

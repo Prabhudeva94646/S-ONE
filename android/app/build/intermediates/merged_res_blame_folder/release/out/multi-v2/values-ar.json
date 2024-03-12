@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.awesome01.app-mergeReleaseResources-32:/values-ar/values-ar.xml",
+            "outputFile": "com.awesome01.app-mergeReleaseResources-33:/values-ar/values-ar.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\2a186089fb1010c0d322074e618021d0\\transformed\\jetified-react-android-0.73.2-release\\res\\values-ar\\values-ar.xml",

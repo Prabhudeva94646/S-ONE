@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.awesome01.app-mergeReleaseResources-32:/values-es/values-es.xml",
+            "outputFile": "com.awesome01.app-mergeReleaseResources-33:/values-es/values-es.xml",
             "map": [
                 {
                     "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\2a186089fb1010c0d322074e618021d0\\transformed\\jetified-react-android-0.73.2-release\\res\\values-es\\values-es.xml",
@@ -54,6 +54,23 @@
                         "startOffsets": "10080",
                         "endColumns": "100",
                         "endOffsets": "10176"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\49dec44c7f4f52ba209b4123ec2a3f69\\transformed\\jetified-ucrop-2.2.6-native\\res\\values-es\\values-es.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,101,164,222,273,320",
+                        "endColumns": "45,62,57,50,46,47",
+                        "endOffsets": "96,159,217,268,315,363"
+                    },
+                    "to": {
+                        "startLines": "124,125,126,127,128,129",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "10500,10546,10609,10667,10718,10765",
+                        "endColumns": "45,62,57,50,46,47",
+                        "endOffsets": "10541,10604,10662,10713,10760,10808"
                     }
                 },
                 {

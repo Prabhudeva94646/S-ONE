@@ -15,10 +15,9 @@ import Images from '../utils/Images';
 import style from '../utils/Style';
 import Colors from '../utils/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const authenticateUser = async (empcode, password) => {
+const authenticateUser = async (empcode, password, navigation) => {
     try {
         const response = await fetch(
             `https://apps.sonalika.com:7007/WebService/api/SONE/AuthenticateUser?UserName=${empcode}&Password=${password}&Token=uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrFb3dZZuu6f7A66inioy1snV116crhfDo5gZ9TDP4nkTV0LgphjJMhB9rqcm4WcnZ`
@@ -38,8 +37,7 @@ const authenticateUser = async (empcode, password) => {
     }
 };
 
-function Login() {
-    const navigation = useNavigation();
+function Login({ navigation }) {
     const [userData, setUserData] = useState({
         captcha: '',
         empcode: '',
@@ -53,7 +51,7 @@ function Login() {
     const [captcha, setCaptcha] = useState('');
 
     const refreshString = () => {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
         for (let i = 0; i < 4; i++) { // Change captcha length to 4
             result += characters.charAt(
@@ -106,7 +104,7 @@ function Login() {
         }
 
         try {
-            const data = await authenticateUser(userData.empcode, userData.psw);
+            const data = await authenticateUser(userData.empcode, userData.psw, navigation);
             if (data.Status === 'Authenticated' && matchCaptcha()) {
                 // Authentication successful
                 // Retrieve employee name from AsyncStorage

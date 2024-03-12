@@ -1,121 +1,131 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, BackHandler } from 'react-native';
-import Colors from '../../utils/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon3 from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../../utils/Colors';
+import ImagePicker from 'react-native-image-crop-picker';
 
-export default function SidePanel({ setMenuToggle, menuToggle }) {
-  const navigation = useNavigation();
+export default function SideBar(props) {
   const [userName, setUserName] = useState('');
+  const [profileImage, setProfileImage] = useState(null);
 
   useEffect(() => {
     const getUserName = async () => {
       try {
-        const name = await AsyncStorage.getItem('employeeName');
-        setUserName(name);
+        setUserName(await AsyncStorage.getItem('employeeName'));
       } catch (error) {
         console.error('Error retrieving user name: ', error);
       }
     };
 
     getUserName();
+    getProfileImage(); // Load profile image when component mounts
+  }, []);
 
-    // Add event listener for hardware back button
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (menuToggle) {
-        setMenuToggle(false); // Close the side panel if it's open
-        return true; // Prevent default behavior
+  useEffect(() => {
+    if (profileImage) {
+      saveProfileImage(profileImage); // Save profile image when it changes
+    }
+  }, [profileImage]);
+
+  const selectProfileImage = async () => {
+    try {
+      const pickedImage = await ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true
+      });
+      setProfileImage(pickedImage.path);
+    } catch (error) {
+      console.log('Error picking image:', error);
+    }
+  };
+
+  const saveProfileImage = async (imageUri) => {
+    try {
+      await AsyncStorage.setItem('profileImage', imageUri);
+    } catch (error) {
+      console.error('Error saving profile image:', error);
+    }
+  };
+
+  const getProfileImage = async () => {
+    try {
+      const imageUri = await AsyncStorage.getItem('profileImage');
+      if (imageUri !== null) {
+        setProfileImage(imageUri);
       }
-      // Return false to let the default back button behavior take over
-      return false;
-    });
+    } catch (error) {
+      console.error('Error retrieving profile image:', error);
+    }
+  };
 
-    // Cleanup function to remove event listener
-    return () => backHandler.remove();
-  }, [menuToggle, setMenuToggle]);
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('employeeCode');
+      await AsyncStorage.removeItem('profileImage'); // Clear profile image on logout
+      props.navigation.navigate('Login');
+    } catch (error) {
+      console.error('Error clearing cache:', error);
+    }
+  };
 
   return (
-    <View
-      style={{
-        position: 'absolute',
-        backgroundColor: Colors.WHITE,
-        width: '60%',
-        height: Dimensions.get('window').height,
-        zIndex: 1,
-        elevation: 1,
-        borderRightWidth: 1,
-        borderRightColor: Colors.WHITE,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginRight: '40%',
-      }}>
-      <View
-        style={{
-          position: 'absolute',
-          height: 70,
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-        }}>
-        <View
-          style={{
-            marginLeft: 15,
-          }}>
-          <Icon3
-            name="menu"
-            size={28}
-            color={Colors.GRAY}
-            onPress={() => {
-              setMenuToggle(!menuToggle);
-            }}
-            style={{}}
-          />
-        </View>
+    <DrawerContentScrollView {...props}>
+      <View style={styles.drawerHeader}>
+        <TouchableOpacity onPress={selectProfileImage}>
+          <View style={styles.userInfo}>
+            {profileImage ? (
+              <Image source={{ uri: profileImage }} style={styles.userIcon} />
+            ) : (
+              <Icon name="user" size={60} color={Colors.BLACK} style={styles.userIcon} />
+            )}
+            <Text style={styles.userName}>{userName}</Text>
+          </View>
+        </TouchableOpacity>
       </View>
-      <View style={{ alignItems: 'center', marginTop: 90 }}>
-        <Icon
-          name="user"
-          size={60}
-          color={Colors.BLACK}
-          style={{
-            borderWidth: 1,
-            paddingHorizontal: 20,
-            paddingVertical: 10,
-            borderRadius: 50,
-            width: 83,
-          }}
-        />
-        <Text style={{ color: Colors.BLACK, fontSize: 17, marginTop: 10 }}>
-          Hi, {userName}
-        </Text>
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('Login');
-        }}
-        style={{
-          height: 70,
-          width: '100%',
-          borderTopWidth: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          paddingTop: 15,
-        }}>
-        <Icon2 name="logout" size={27} color={Colors.BLACK} />
-        <Text
-          style={{
-            color: Colors.BLACK,
-            fontSize: 18,
-            fontWeight: 700,
-            marginRight: 20,
-            marginLeft: 8,
-          }}>
-          Log Out
-        </Text>
-      </TouchableOpacity>
-    </View>
+      <DrawerItem
+        label="Home"
+        onPress={() => props.navigation.navigate('Home')}
+        icon={({ color, size }) => <Icon name="home" size={size} color={color} />}
+        labelStyle={styles.drawerItemLabel}
+      />
+      <DrawerItem
+        label="Log Out"
+        onPress={handleLogout}
+        icon={({ color, size }) => <Icon name="sign-out" size={size} color={color} />}
+        labelStyle={styles.drawerItemLabel}
+      />
+    </DrawerContentScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  drawerHeader: {
+    paddingVertical: 25,
+    paddingHorizontal: 25,
+  },
+  userInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginRight: 10,
+    borderWidth: 1, // Add border
+    borderColor: Colors.BLACK, // Border color
+  },
+  userName: {
+    color: Colors.BLACK,
+    fontSize: 17,
+    flexWrap: 'wrap',
+    flex: 1,
+  },
+  drawerItemLabel: {
+    fontSize: 16,
+    marginLeft: -15,
+  },
+});

@@ -6,6 +6,7 @@ import TopBox from '../components/arrowscreen/TopBox';
 import Box from '../components/arrowscreen/Box';
 import homeAPI from '../api/Homeapi';
 import Loading from '../components/loading/Loading';
+// import LogoutBtn from '../components/homecmp/LogoutBtn';
 
 export default function BoxList2() {
   const navigation = useNavigation();
@@ -82,6 +83,7 @@ export default function BoxList2() {
         )}
         style={{paddingTop: 10, marginBottom: 'auto'}}
       />
+      {/* <LogoutBtn /> */}
     </View>
   );
 }
