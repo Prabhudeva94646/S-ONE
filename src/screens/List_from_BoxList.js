@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { View, BackHandler, RefreshControl, Text } from 'react-native'; // Import Text component
-import SwipeableFlatList from 'react-native-swipeable-list';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import apiCaller from '../api/APICaller';
-import MainHeader from '../components/headers/MainHeader';
-import Row from '../components/listcmp/Row';
-import Heading from '../components/listcmp/Heading';
-import Loading from '../components/loading/Loading';
+import React, { useState, useEffect } from "react";
+import { View, BackHandler, RefreshControl, Text, TouchableOpacity } from "react-native"; // Import TouchableOpacity
+import SwipeableFlatList from "react-native-swipeable-list";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import apiCaller from "../api/APICaller";
+import MainHeader from "../components/headers/MainHeader";
+import Row from "../components/listcmp/Row";
+import Heading from "../components/listcmp/Heading";
+import Loading from "../components/loading/Loading";
 
 export default function List() {
   const navigation = useNavigation();
   const route = useRoute();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [completeData, setCompleteData] = useState([]);
@@ -19,12 +19,12 @@ export default function List() {
 
   useEffect(() => {
     const backAction = () => {
-      navigation.navigate('Home');
+      navigation.goBack();
       return true;
     };
     const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
+      "hardwareBackPress",
+      backAction
     );
     return () => backHandler.remove();
   }, []);
@@ -41,7 +41,7 @@ export default function List() {
           setData([]);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       } finally {
         setIsLoading(false);
         setRefreshing(false);
@@ -53,7 +53,9 @@ export default function List() {
   useEffect(() => {
     if (completeData.length > 0) {
       const filteredData = completeData.filter(
-        item => item.RequestorDept.toLowerCase() === route.params.VERTICAL_NAME.toLowerCase()
+        (item) =>
+          item.RequestorDept.toLowerCase() ===
+          route.params.VERTICAL_NAME.toLowerCase()
       );
       setData(filteredData);
     } else {
@@ -63,6 +65,11 @@ export default function List() {
 
   const onRefresh = () => {
     setRefreshing(true);
+  };
+
+  // Function to handle navigation to approval details page
+  const navigateToApprovalDetail = (docNo) => {
+    navigation.navigate("ApprovalDetail", { docNo });
   };
 
   if (isLoading) {
@@ -76,23 +83,37 @@ export default function List() {
   return (
     <View>
       <MainHeader
-        prop={'Home'}
+        prop={"Home"}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <Heading item={{ dep: 'Dept.', number: 'Doc. No.', value: 'App. value' }} />
+      <Heading
+        item={{ dep: "Dept.", number: "Doc. No.", value: "App. value" }}
+      />
       <SwipeableFlatList
         data={data}
         contentContainerStyle={{}}
-        renderItem={({ item }) => <Row item={item} />}
-        style={{ marginBottom: 'auto' }}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity onPress={() => navigateToApprovalDetail(item.DocNo)}>
+            <Row
+              item={item}
+              prop={{
+                Category: route.params.Category,
+                Dept: route.params.VERTICAL_NAME,
+                index: index,
+              }}
+              key={index}
+            />
+          </TouchableOpacity>
+        )}
+        style={{ marginBottom: "auto" }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         keyExtractor={(item, index) => index.toString()}
       />
       <View style={{ padding: 10 }}>
-         <Text>Route Params: {JSON.stringify(route.params)}</Text>
+        <Text>Route Params: {JSON.stringify(route.params)}</Text>
       </View>
     </View>
   );

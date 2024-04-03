@@ -6,6 +6,7 @@ INJECTED from C:\Users\HP\StudioProjects\S-ONE-main\android\app\src\main\Android
 INJECTED from C:\Users\HP\StudioProjects\S-ONE-main\android\app\src\main\AndroidManifest.xml:1:1-25:12
 MERGED from [com.facebook.react:flipper-integration:0.73.2] C:\Users\HP\.gradle\caches\transforms-4\2983664a26108f46402a6ff13c795d67\transformed\jetified-flipper-integration-0.73.2-release\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-async-storage_async-storage] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-community_masked-view] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\@react-native-community\masked-view\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-gesture-handler] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-31:12
 MERGED from [:react-native-image-picker] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:2:1-19:12
@@ -160,6 +161,8 @@ MERGED from [com.facebook.react:flipper-integration:0.73.2] C:\Users\HP\.gradle\
 MERGED from [com.facebook.react:flipper-integration:0.73.2] C:\Users\HP\.gradle\caches\transforms-4\2983664a26108f46402a6ff13c795d67\transformed\jetified-flipper-integration-0.73.2-release\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-async-storage_async-storage] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-async-storage_async-storage] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_masked-view] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\@react-native-community\masked-view\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_masked-view] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\@react-native-community\masked-view\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-gesture-handler] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-gesture-handler] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:5:5-44

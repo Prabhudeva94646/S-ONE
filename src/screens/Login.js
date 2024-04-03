@@ -39,7 +39,6 @@ const authenticateUser = async (empcode, password, navigation) => {
 
 function Login({ navigation }) {
     const [userData, setUserData] = useState({
-        captcha: '',
         empcode: '',
         isChecked: false,
         psw: '',
@@ -48,19 +47,6 @@ function Login({ navigation }) {
     const [errorMsg, setErrorMsg] = useState(
         'Something Went Wrong !! Try Again Later !!',
     );
-    const [captcha, setCaptcha] = useState('');
-
-    const refreshString = () => {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let result = '';
-        for (let i = 0; i < 4; i++) { // Change captcha length to 4
-            result += characters.charAt(
-                Math.floor(Math.random() * characters.length),
-            );
-        }
-        setCaptcha(result);
-        setUserData({ ...userData, captcha: '' });
-    };
 
     useEffect(() => {
         const backAction = () => {
@@ -78,13 +64,19 @@ function Login({ navigation }) {
             'hardwareBackPress',
             backAction,
         );
-        refreshString(); // Call refreshString to generate captcha when component mounts
         return () => backHandler.remove();
     }, []);
 
-    const matchCaptcha = () => {
-        return userData.captcha === captcha;
-    };
+    useEffect(() => {
+        const fetchRememberedData = async () => {
+            const empcode = await AsyncStorage.getItem('rememberedEmployeeCode');
+            const psw = await AsyncStorage.getItem('rememberedPassword');
+            if (empcode && psw) {
+                setUserData({ ...userData, empcode, psw, isChecked: true });
+            }
+        };
+        fetchRememberedData();
+    }, []);
 
     const handleSubmit = async () => {
         if (userData.empcode === '') {
@@ -97,30 +89,23 @@ function Login({ navigation }) {
             setErrorMsg('Please enter your password.');
             return;
         }
-        if (userData.captcha === '') {
-            setError(true);
-            setErrorMsg('Please enter the CAPTCHA.');
-            return;
-        }
 
         try {
             const data = await authenticateUser(userData.empcode, userData.psw, navigation);
-            if (data.Status === 'Authenticated' && matchCaptcha()) {
+            if (data.Status === 'Authenticated') {
                 // Authentication successful
+                // Store user credentials if "Remember Me" is checked
+                if (userData.isChecked) {
+                    await AsyncStorage.setItem('rememberedEmployeeCode', userData.empcode);
+                    await AsyncStorage.setItem('rememberedPassword', userData.psw);
+                }
                 // Retrieve employee name from AsyncStorage
                 const employeeName = await AsyncStorage.getItem('employeeName');
-                // Now you can use the employeeName variable as needed
-                navigation.replace('Home');
+                navigation.replace('drawer');
             } else {
                 // Authentication failed
-                if (data.Status === 'Authenticated') {
-                    setError(true);
-                    setErrorMsg(`Hi ${data.EmpName}, the captcha is incorrect`);
-                } else {
-                    setError(true);
-                    setErrorMsg('Invalid credentials or CAPTCHA. Please try again.');
-                }
-                refreshString(); // Refresh CAPTCHA
+                setError(true);
+                setErrorMsg('Invalid credentials. Please try again.');
             }
         } catch (error) {
             console.error('Error occurred during authentication:', error);
@@ -179,52 +164,6 @@ function Login({ navigation }) {
                                 { alignItems: 'center', justifyContent: 'center' },
                             ]}>
                             <Icon name="lock" size={28} color={Colors.GRAY} />
-                        </View>
-                    </View>
-                    <View style={[style.outbox, { justifyContent: 'space-between' }]}>
-                        <TextInput
-                            style={style.innercontainer3}
-                            value={userData.captcha}
-                            placeholder="Enter CAPTCHA"
-                            placeholderTextColor={Colors.GRAY}
-                            onChangeText={(val) => {
-                                setUserData({ ...userData, captcha: val });
-                            }}
-                        />
-                        <View
-                            style={[
-                                style.innercontainer3,
-                                {
-                                    borderWidth: 0,
-                                    width: '45%',
-                                    flexDirection: 'row',
-                                    backgroundColor: Colors.TRANSPARENT,
-                                },
-                            ]}>
-                            <ImageBackground
-                                source={Images.CAPTCHABG}
-                                resizeMode="cover"
-                                style={{ width: '85%', height: '100%' }}>
-                                <Text
-                                    style={{
-                                        fontSize: 17,
-                                        fontWeight: '500',
-                                        color: Colors.BLACK,
-                                        height: '100%',
-                                        width: '85%',
-                                        textAlign: 'center',
-                                        textAlignVertical: 'center',
-                                        userSelect: 'none',
-                                        textDecorationLine: 'line-through',
-                                    }}>
-                                    {captcha}
-                                </Text>
-                            </ImageBackground>
-                            <TouchableOpacity
-                                style={{ width: '15%', alignItems: 'center' }}
-                                onPress={() => refreshString()}>
-                                <Icon name="refresh" size={20} color={Colors.GRAY} />
-                            </TouchableOpacity>
                         </View>
                     </View>
                     <View

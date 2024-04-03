@@ -1,17 +1,17 @@
-import { View, Text, BackHandler, RefreshControl } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import SwipeableFlatList from 'react-native-swipeable-list';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import apiCaller from '../api/APICaller';
-import MainHeader from '../components/headers/MainHeader';
-import Row from '../components/listcmp/Row';
-import Heading from '../components/listcmp/Heading';
-import Loading from '../components/loading/Loading';
+import { View, Text, BackHandler, RefreshControl } from "react-native";
+import React, { useState, useEffect } from "react";
+import SwipeableFlatList from "react-native-swipeable-list";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import apiCaller from "../api/APICaller";
+import MainHeader from "../components/headers/MainHeader";
+import Row from "../components/listcmp/Row";
+import Heading from "../components/listcmp/Heading";
+import Loading from "../components/loading/Loading";
 
 export default function List() {
   const navigation = useNavigation();
   const route = useRoute();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState();
   const [data, setData] = useState();
   const [completeData, setCompleteData] = useState([]);
@@ -19,12 +19,12 @@ export default function List() {
 
   useEffect(() => {
     const backAction = () => {
-      navigation.navigate('Home');
+      navigation.navigate("Home");
       return true;
     };
     const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
+      "hardwareBackPress",
+      backAction
     );
     return () => backHandler.remove();
   }, []);
@@ -34,7 +34,7 @@ export default function List() {
       setIsLoading(true);
       await apiCaller
         .ListData(route.params.Category)
-        .then(resData => {
+        .then((resData) => {
           if (resData) {
             setData(resData.Data);
             setCompleteData(resData.Data);
@@ -51,12 +51,11 @@ export default function List() {
   useEffect(() => {
     setData(
       completeData.filter(
-        item =>
+        (item) =>
           item.RequestorDept.toLowerCase().includes(
-            searchQuery.toLowerCase(),
-          ) ||
-          item.DocumentNo.toLowerCase().includes(searchQuery.toLowerCase()),
-      ),
+            searchQuery.toLowerCase()
+          ) || item.DocumentNo.toLowerCase().includes(searchQuery.toLowerCase())
+      )
     );
   }, [searchQuery]);
 
@@ -75,16 +74,20 @@ export default function List() {
   return (
     <View>
       <MainHeader
-        prop={'Home'}
+        prop={"Home"}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <Heading item={{dep: 'Dept.', number: 'Doc. No.', value: 'App. value'}} />
+      <Heading
+        item={{ dep: "Dept.", number: "Doc. No.", value: "App. value" }}
+      />
       <SwipeableFlatList
         data={data}
         contentContainerStyle={{}}
-        renderItem={({item}) => <Row item={item} />}
-        style={{marginBottom: 'auto'}}
+        renderItem={({ item,index }) => (
+          <Row item={item} prop={{ Category: route.params.Category,index:index }} key={index} />
+        )}
+        style={{ marginBottom: "auto" }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }

@@ -86,8 +86,8 @@ export default function SideBar(props) {
         </TouchableOpacity>
       </View>
       <DrawerItem
-        label="Home"
-        onPress={() => props.navigation.navigate('Home')}
+        label="HomeSreen"
+        onPress={() => props.navigation.navigate('Home',{screen: 'Home'})}
         icon={({ color, size }) => <Icon name="home" size={size} color={color} />}
         labelStyle={styles.drawerItemLabel}
       />

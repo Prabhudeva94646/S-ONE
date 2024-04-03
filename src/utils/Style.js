@@ -13,7 +13,7 @@ export default Style = StyleSheet.create({
     backgroundColor: Colors.BG_WHITE,
     borderColor: Colors.BLACK,
     borderWidth: 1,
-    height: 535,
+    height: 480,
     width: 350,
     alignItems: 'center',
   },

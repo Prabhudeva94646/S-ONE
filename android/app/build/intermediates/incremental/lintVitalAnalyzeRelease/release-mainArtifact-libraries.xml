@@ -224,10 +224,23 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="C:\Users\HP\StudioProjects\S-ONE-main\android@@:react-native-community_masked-view::release"
+      jars="C:\Users\HP\.gradle\caches\transforms-4\4b8db1f8fc3eef602a8e862fed888e9e\transformed\out\jars\classes.jar;C:\Users\HP\.gradle\caches\transforms-4\4b8db1f8fc3eef602a8e862fed888e9e\transformed\out\jars\libs\R.jar"
+      resolved="Awesome01:react-native-community_masked-view:unspecified"
+      folder="C:\Users\HP\.gradle\caches\transforms-4\4b8db1f8fc3eef602a8e862fed888e9e\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="C:\Users\HP\StudioProjects\S-ONE-main\android@@:react-native-gesture-handler::release"
-      jars="C:\Users\HP\.gradle\caches\transforms-4\5919180c3f018bde3a0cd3c234862801\transformed\out\jars\classes.jar;C:\Users\HP\.gradle\caches\transforms-4\5919180c3f018bde3a0cd3c234862801\transformed\out\jars\libs\R.jar"
+      jars="C:\Users\HP\.gradle\caches\transforms-4\72f9809521fbbe0e58b5b6904343ac81\transformed\out\jars\classes.jar;C:\Users\HP\.gradle\caches\transforms-4\72f9809521fbbe0e58b5b6904343ac81\transformed\out\jars\libs\R.jar"
       resolved="Awesome01:react-native-gesture-handler:unspecified"
-      folder="C:\Users\HP\.gradle\caches\transforms-4\5919180c3f018bde3a0cd3c234862801\transformed\out"
+      folder="C:\Users\HP\.gradle\caches\transforms-4\72f9809521fbbe0e58b5b6904343ac81\transformed\out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

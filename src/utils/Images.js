@@ -9,6 +9,11 @@ export default Images = {
     ACCEPTED: require('../assets/Images/approve.webp'),
     REJECTED: require('../assets/Images/rejected.webp'),
   },
+  APPROVE_SCREEN_BTN: {
+    APPROVE: require('../assets/Images/Approved.png'),
+    REJECT: require('../assets/Images/Reject.png'),
+    HISTORY: require('../assets/Images/History.png'),
+  },
   BUTTONS: {
     BACK_BTN: require('../assets/Images/Back_Btn.png'),
   },
