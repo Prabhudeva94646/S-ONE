@@ -19,11 +19,14 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Images from "../../utils/Images.js";
 import Colors from "../../utils/Colors.js";
 import Loading from "../../components/loading/Loading";
-import { LinearGradient } from 'react-native-linear-gradient';
+import { LinearGradient } from "react-native-linear-gradient";
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
 
 export default function Form({ DocumentNo, ApprovalCategory }) {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
+  const [files, setFiles] = useState([]);
   const [compData, setCompData] = useState([]);
   const [history, setHistory] = useState([]);
   const [returnTo, setReturnTo] = useState([]);
@@ -50,9 +53,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
         setCompData(resData);
         setRemarkData({ ...remarkData, ApprovalMapID: resData.ApprovalMapID });
       }
-      setIsLoading(false);
 
-      setIsLoading(true);
       const historyData = await apiCaller.approvalHistory(
         DocumentNo,
         ApprovalCategory
@@ -60,11 +61,18 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
       if (historyData) {
         setHistory(historyData.Data);
       }
+
+      const filesData = await apiCaller.GetAttachedFiles(
+        DocumentNo,
+        ApprovalCategory
+      );
+      if (resData) {
+        setFiles(filesData.Data);
+      }
       setIsLoading(false);
     };
     fetchData();
   }, []);
-
 
   const getData = async () => {
     setToogleReturn(!toggleReturn);
@@ -106,6 +114,23 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
     setShowFullHistory(false);
   };
 
+  const fileprev = async (url) => {
+    const f2 = url.split("/");
+
+    const fileName = f2[f2.length - 1];
+
+    const localFile = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+    const options = {
+      fromUrl: url,
+      toFile: localFile,
+    };
+
+    RNFS.downloadFile(options)
+      .promise.then(() => FileViewer.open(localFile))
+      .then(() => {})
+      .catch((error) => {});
+  };
+
   if (isLoading) {
     return (
       <View style={{ width: Dimensions.get("window").width }}>
@@ -117,10 +142,13 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
   const isRemarksFilled = remarkData.Remarks.trim() !== "";
 
   const remarksContainerStyle = {
-    borderColor: buttonPressed && !isRemarksFilled ? 'red' : Colors.BLACK
+    borderColor: buttonPressed && !isRemarksFilled ? "red" : Colors.BLACK,
   };
 
-  const remarksTextStyle = remarkData.Remarks.trim() === "" ? { color: 'red' } : { color: Colors.BLACK };
+  const remarksTextStyle =
+    remarkData.Remarks.trim() === ""
+      ? { color: "red" }
+      : { color: Colors.BLACK };
 
   return (
     <View
@@ -144,8 +172,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
             <View>
               <View
                 style={{ width: "100%", padding: 10, borderBottomWidth: 1 }}
-              >
-              </View>
+              ></View>
               <View style={styles.container}>
                 <View style={styles.row}>
                   {data.slice(0, showAllRows ? data.length : 6).map((item) => (
@@ -235,51 +262,177 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                     Approval Flow Details-
                   </Text>
                 </View>
-                {history.slice(0, showFullHistory ? history.length : 1).map((approval, index) => (
-                  <View key={index}>
-                    <View style={[styles.approval, getApprovalTileStyle(approval.ApproverDecisionStatus)]}>
-                      <View style={{ width: "100%", flexDirection: "row" }}>
-                        <Text style={[styles.add, { width: "35%", borderLeftWidth: 0 }]}>
-                          Date & Time
-                        </Text>
-                        <Text style={[styles.add, { width: "35%"}]}>
-                          {approval.ApproverActionDate}
-                        </Text>
+                {history
+                  .slice(0, showFullHistory ? history.length : 1)
+                  .map((approval, index) => (
+                    <View key={index}>
+                      <View
+                        style={[
+                          styles.approval,
+                          getApprovalTileStyle(approval.ApproverDecisionStatus),
+                        ]}
+                      >
+                        <View style={{ width: "100%", flexDirection: "row" }}>
+                          <Text
+                            style={[
+                              styles.add,
+                              { width: "35%", borderLeftWidth: 0 },
+                            ]}
+                          >
+                            Date & Time
+                          </Text>
+                          <Text style={[styles.add, { width: "35%" }]}>
+                            {approval.ApproverActionDate}
+                          </Text>
+                        </View>
+                        <View style={{ width: "100%", flexDirection: "row" }}>
+                          <Text
+                            style={[
+                              styles.add,
+                              { width: "35%", borderLeftWidth: 0 },
+                            ]}
+                          >
+                            By
+                          </Text>
+                          <Text style={[styles.add, { width: "35%" }]}>
+                            {approval.ApproverName}
+                          </Text>
+                        </View>
+                        <View style={{ width: "100%", flexDirection: "row" }}>
+                          <Text
+                            style={[
+                              styles.add,
+                              { width: "35%", borderLeftWidth: 0 },
+                            ]}
+                          >
+                            Remarks
+                          </Text>
+                          <Text style={[styles.add, { width: "65%" }]}>
+                            {approval.ApproverRemarks}
+                          </Text>
+                        </View>
                       </View>
-                      <View style={{ width: "100%", flexDirection: "row" }}>
-                        <Text style={[styles.add, {width: "35%", borderLeftWidth: 0 }]}>By</Text>
-                        <Text style={[styles.add, { width: "35%" }]}>
-                          {approval.ApproverName}
-                        </Text>
-                      </View>
-                      <View style={{ width: "100%", flexDirection: "row" }}>
-                        <Text style={[styles.add, { width: "35%", borderLeftWidth: 0 }]}>
-                          Remarks
-                        </Text>
-                        <Text style={[styles.add, { width: "65%" }]}>
-                          {approval.ApproverRemarks}
-                        </Text>
-                      </View>
+                      <View style={{ marginBottom: 10 }} />
                     </View>
-                    <View style={{ marginBottom: 10 }} />
-                  </View>
-                ))}
+                  ))}
 
                 <View>
                   {!showFullHistory && (
                     <TouchableOpacity onPress={handleShowFullHistory}>
-                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold", alignSelf:"flex-end", marginLeft: 180,color: Colors.BLUE }}>...Show Full Approval History</Text>
+                      <Text
+                        style={{
+                          textDecorationLine: "underline",
+                          fontWeight: "bold",
+                          alignSelf: "flex-end",
+                          marginLeft: 180,
+                          color: Colors.BLUE,
+                        }}
+                      >
+                        ...Show Full Approval History
+                      </Text>
                     </TouchableOpacity>
                   )}
                   {showFullHistory && (
                     <TouchableOpacity onPress={handleShowFirstIndex}>
-                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold", alignSelf:"flex-end", marginLeft: 280, color: Colors.BLUE }}>...Show Less</Text>
+                      <Text
+                        style={{
+                          textDecorationLine: "underline",
+                          fontWeight: "bold",
+                          alignSelf: "flex-end",
+                          marginLeft: 280,
+                          color: Colors.BLUE,
+                        }}
+                      >
+                        ...Show Less
+                      </Text>
                     </TouchableOpacity>
                   )}
                 </View>
 
+                {files.length != 0 && (
+                  <View style={{ width: "100%" }}>
+                    <View style={styles.de}>
+                      <Text
+                        style={{
+                          color: Colors.BLACK,
+                          width: "100%",
+                          fontSize: 15,
+                        }}
+                      >
+                        Files Attached
+                      </Text>
+                    </View>
+                    <ScrollView
+                      horizontal={true}
+                      nestedScrollEnabled={true}
+                      showsHorizontalScrollIndicator={false}
+                      style={styles.files}
+                    >
+                      {files.map((item) => (
+                        <View style={styles.infiles}>
+                          <TouchableOpacity
+                            onPress={() => fileprev(item.FilePath)}
+                          >
+                            {item.ContentType == "application/pdf" ? (
+                              <Image
+                                source={Images.ICONS.PDF}
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                }}
+                              />
+                            ) : item.ContentType == "application/word" ? (
+                              <Image
+                                source={Images.ICONS.WORD}
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                }}
+                              />
+                            ) : item.ContentType == "application/png" ||
+                              item.ContentType == "application/jpg" ? (
+                              <Image
+                                source={Images.ICONS.IMAGE}
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                }}
+                              />
+                            ) : item.ContentType == "application/xlxs" ? (
+                              <Image
+                                source={Images.ICONS.SHEETS}
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                }}
+                              />
+                            ) : (
+                              <Image
+                                source={Images.ICONS.UNKNOWN}
+                                style={{
+                                  width: 50,
+                                  height: 50,
+                                }}
+                              />
+                            )}
+
+                            <Text style={{ color: Colors.BLACK }}>
+                              {item.FileName}
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      ))}
+                    </ScrollView>
+                  </View>
+                )}
+
                 <View style={styles.re}>
-                  <Text style={[{ color: Colors.BLACK, fontSize: 15 }, buttonPressed && !isRemarksFilled && { color: 'red' }]}>
+                  <Text
+                    style={[
+                      { color: Colors.BLACK, fontSize: 15 },
+                      buttonPressed && !isRemarksFilled && { color: "red" },
+                    ]}
+                  >
                     *Remarks-
                   </Text>
                 </View>
@@ -456,7 +609,6 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                 />
               </TouchableOpacity>
             </View>
-
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -530,6 +682,14 @@ const styles = StyleSheet.create({
     marginTop: 4,
     flexDirection: "column",
   },
+  files: {
+    width: "100%",
+  },
+  infiles: {
+    width: "25%",
+    alignItems: "center",
+    marginHorizontal: 5,
+  },
   re: {
     marginTop: 15,
     width: "100%",
@@ -547,14 +707,14 @@ const styles = StyleSheet.create({
 // Function to dynamically generate styles for approval tiles based on decision status
 function getApprovalTileStyle(decisionStatus) {
   switch (decisionStatus) {
-    case 'APPROVED':
+    case "APPROVED":
       return {
-        backgroundColor: 'rgba(0,255,0,0.3)',
+        backgroundColor: "rgba(0,255,0,0.3)",
         // Adjust the rgba values to change the color and transparency
       };
-    case 'RETURN':
+    case "RETURN":
       return {
-        backgroundColor: 'rgba(255,255,0,0.5)',
+        backgroundColor: "rgba(255,255,0,0.5)",
         // Adjust the rgba values to change the color and transparency
       };
     default:
