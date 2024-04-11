@@ -4,9 +4,6 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Feather from "react-native-vector-icons/Feather";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Home from "./screens/Home.js";
 import Login from "./screens/Login.js";
 import SplashScreen from "./screens/SplashScreen.js";
@@ -70,6 +67,9 @@ const DrawerStack = () => (
     }}
     backBehavior={"none"}
     screenOptions={{ headerShown: false }}
+    drawerContentOptions={{
+      gestureResponseDistance: { horizontal: 0 },
+    }}
   >
     <Drawer.Screen name="Home" component={SecondaryStack} />
   </Drawer.Navigator>

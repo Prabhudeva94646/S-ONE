@@ -11,7 +11,7 @@ export default function SecondaryHeader({ cp, tp, inav, nfun, bfun, prop }) {
     <View style={[Style.Header, { justifyContent: 'flex-start', alignItems: 'center' }]}>
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => navigation.navigate(prop)}
+        onPress={() => navigation.goBack()}
         style={{ paddingLeft: 20, width: '20%', position: 'absolute' }}
       >
         <Icon name="arrow-back" size={30} color={Colors.GRAY} />

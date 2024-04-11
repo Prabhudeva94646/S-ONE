@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.awesome01.app-mergeReleaseResources-33:/values-sk/values-sk.xml",
+            "outputFile": "com.awesome01.app-mergeReleaseResources-34:/values-sk/values-sk.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\49dec44c7f4f52ba209b4123ec2a3f69\\transformed\\jetified-ucrop-2.2.6-native\\res\\values-sk\\values-sk.xml",
-                    "from": {
-                        "startLines": "2,3,4",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "55,125,182",
-                        "endColumns": "69,56,50",
-                        "endOffsets": "120,177,228"
-                    },
-                    "to": {
-                        "startLines": "126,127,128",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "10365,10435,10492",
-                        "endColumns": "69,56,50",
-                        "endOffsets": "10430,10487,10538"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\422cfa1e245fafdbb33e84aae52e63c3\\transformed\\appcompat-1.6.1\\res\\values-sk\\values-sk.xml",
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\b3627ca143232ec2ceb6e319eb18971d\\transformed\\appcompat-1.6.1\\res\\values-sk\\values-sk.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,7 +21,41 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\2a186089fb1010c0d322074e618021d0\\transformed\\jetified-react-android-0.73.2-release\\res\\values-sk\\values-sk.xml",
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\13659b94c66de92d98d7f8af61234b95\\transformed\\core-1.9.0\\res\\values-sk\\values-sk.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "121",
+                        "startColumns": "4",
+                        "startOffsets": "9960",
+                        "endColumns": "100",
+                        "endOffsets": "10056"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\0d5200e7c6f2e02eefb8483dce46a169\\transformed\\jetified-ucrop-2.2.6-native\\res\\values-sk\\values-sk.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,182",
+                        "endColumns": "69,56,50",
+                        "endOffsets": "120,177,228"
+                    },
+                    "to": {
+                        "startLines": "126,127,128",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "10365,10435,10492",
+                        "endColumns": "69,56,50",
+                        "endOffsets": "10430,10487,10538"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\4bc2600b2552427dab8b25781ed4b9bb\\transformed\\jetified-react-android-0.73.2-release\\res\\values-sk\\values-sk.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -55,7 +72,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\ba917511888af07c544dc62334988223\\transformed\\material-1.9.0\\res\\values-sk\\values-sk.xml",
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\d3a8a24834f295d8078f18b8298041f7\\transformed\\material-1.9.0\\res\\values-sk\\values-sk.xml",
                     "from": {
                         "startLines": "2,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -71,23 +88,6 @@
                         "endLines": "7,36,37,38,39,40,43,44,45,47,48,50,53,55,56,57,58,59,60,61,62,63,64,65,66,67,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107",
                         "endColumns": "12,74,74,77,91,82,91,127,80,64,98,75,64,89,63,65,53,68,59,53,116,59,61,53,71,129,86,91,138,68,77,87,53,50,65,71,76,82,71,76,72,70,87,71,91,95,73,73,95,51,66,86,86,61,63,62,105,95,97,97,57,54,78",
                         "endOffsets": "423,3285,3360,3438,3530,3613,3905,4033,4114,4262,4361,4508,4731,4889,4953,5019,5073,5142,5202,5256,5373,5433,5495,5549,5621,5751,6069,6161,6300,6369,6447,6535,6589,6640,6706,6778,6855,6938,7010,7087,7160,7231,7319,7391,7483,7579,7653,7727,7823,7875,7942,8029,8116,8178,8242,8305,8411,8507,8605,8703,8761,8816,8895"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-4\\3d41e5438b198dd30b81a1814efc8c18\\transformed\\core-1.9.0\\res\\values-sk\\values-sk.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "121",
-                        "startColumns": "4",
-                        "startOffsets": "9960",
-                        "endColumns": "100",
-                        "endOffsets": "10056"
                     }
                 }
             ]

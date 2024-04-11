@@ -9,185 +9,199 @@
 9        android:targetSdkVersion="34" />
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:3:5-67
-11-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:3:22-64
-12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-12-->[:react-native-fs] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-fs\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
-12-->[:react-native-fs] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-fs\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-78
-13    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-14
-15    <queries>
-15-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-11:15
-16        <intent>
-16-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-10:18
-17            <action android:name="android.media.action.IMAGE_CAPTURE" />
-17-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-73
-17-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:21-70
+11-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:3:5-67
+11-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:3:22-64
+12
+13    <queries>
+13-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:25:5-30:11
+14        <intent>
+14-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:26:5-29:14
+15            <action android:name="android.intent.action.VIEW" />
+15-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:27:9-61
+15-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:27:17-58
+16
+17            <data android:mimeType="*/*" />
+17-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:28:9-40
+17-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:28:15-37
 18        </intent>
-19    </queries>
-20    <!--
-21    This manifest file is used only by Gradle to configure debug-only capabilities
-22    for React Native Apps.
-23    -->
-24    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-24-->[com.facebook.react:react-android:0.73.2] C:\Users\Rishav\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:16:5-78
-24-->[com.facebook.react:react-android:0.73.2] C:\Users\Rishav\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:16:22-75
+19        <intent>
+19-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-10:18
+20            <action android:name="android.media.action.IMAGE_CAPTURE" />
+20-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-73
+20-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:21-70
+21        </intent>
+22    </queries>
+23
+24    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+24-->[:react-native-community_netinfo] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-79
+24-->[:react-native-community_netinfo] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-76
 25    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-25-->[com.facebook.flipper:flipper:0.201.0] C:\Users\Rishav\.gradle\caches\transforms-3\9b2c28bd5719adb7e465469e2ca76c12\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:14:5-76
-25-->[com.facebook.flipper:flipper:0.201.0] C:\Users\Rishav\.gradle\caches\transforms-3\9b2c28bd5719adb7e465469e2ca76c12\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:14:22-73
-26
-27    <permission
-27-->[androidx.core:core:1.9.0] C:\Users\Rishav\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
-28        android:name="com.awesome01.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-28-->[androidx.core:core:1.9.0] C:\Users\Rishav\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
-29        android:protectionLevel="signature" />
-29-->[androidx.core:core:1.9.0] C:\Users\Rishav\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
-30
-31    <uses-permission android:name="com.awesome01.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-31-->[androidx.core:core:1.9.0] C:\Users\Rishav\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
-31-->[androidx.core:core:1.9.0] C:\Users\Rishav\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
-32
-33    <application
-33-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:5:5-24:19
-34        android:name="com.awesome01.MainApplication"
-34-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:6:7-38
-35        android:allowBackup="false"
-35-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:10:7-34
-36        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-36-->[androidx.core:core:1.9.0] C:\Users\Rishav\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
-37        android:debuggable="true"
-38        android:extractNativeLibs="true"
-39        android:icon="@mipmap/ic_launcher"
-39-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:8:7-41
-40        android:label="@string/app_name"
-40-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:7:7-39
-41        android:roundIcon="@mipmap/ic_launcher_round"
-41-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:9:7-52
-42        android:theme="@style/AppTheme"
-42-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:11:7-38
-43        android:usesCleartextTraffic="true" >
-43-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\debug\AndroidManifest.xml:6:9-44
-44        <activity
-44-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:12:7-23:18
-45            android:name="com.awesome01.MainActivity"
-45-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:13:9-37
-46            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
-46-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:15:9-118
-47            android:exported="true"
-47-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:18:9-32
-48            android:label="@string/app_name"
-48-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:14:9-41
-49            android:launchMode="singleTask"
-49-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:16:9-40
-50            android:windowSoftInputMode="adjustResize" >
-50-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:17:9-51
-51            <intent-filter>
-51-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:19:9-22:25
-52                <action android:name="android.intent.action.MAIN" />
-52-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:20:13-65
-52-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:20:21-62
-53
-54                <category android:name="android.intent.category.LAUNCHER" />
-54-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:21:13-73
-54-->C:\Users\Rishav\Downloads\S-ONE-main\android\app\src\main\AndroidManifest.xml:21:23-70
-55            </intent-filter>
-56        </activity>
-57
-58        <provider
-58-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-16:20
-59            android:name="com.vinzscam.reactnativefileviewer.FileProvider"
-59-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-75
-60            android:authorities="com.awesome01.provider"
-60-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-60
-61            android:exported="false"
-61-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-37
-62            android:grantUriPermissions="true" >
-62-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-47
-63            <meta-data
-63-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
-64                android:name="android.support.FILE_PROVIDER_PATHS"
-64-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
-65                android:resource="@xml/file_viewer_provider_paths" />
-65-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
-66        </provider>
-67        <provider
-67-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-24:20
-68            android:name="com.reactnative.ivpusic.imagepicker.IvpusicImagePickerFileProvider"
-68-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-94
-69            android:authorities="com.awesome01.provider"
-69-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-60
-70            android:exported="false"
-70-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-37
-71            android:grantUriPermissions="true" >
-71-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-47
-72            <meta-data
-72-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
-73                android:name="android.support.FILE_PROVIDER_PATHS"
-73-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
-74                android:resource="@xml/ivpusic_imagepicker_provider_paths" />
-74-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
-75        </provider>
-76
-77        <activity
-77-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:9-28:72
-78            android:name="com.yalantis.ucrop.UCropActivity"
-78-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-60
-79            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-79-->[:react-native-image-crop-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-69
-80
-81        <provider
-81-->[:react-native-image-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-16:20
-82            android:name="com.imagepicker.ImagePickerProvider"
-82-->[:react-native-image-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-63
-83            android:authorities="com.awesome01.imagepickerprovider"
-83-->[:react-native-image-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-71
-84            android:exported="false"
-84-->[:react-native-image-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-37
-85            android:grantUriPermissions="true" >
-85-->[:react-native-image-picker] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-47
-86            <meta-data
-86-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
-87                android:name="android.support.FILE_PROVIDER_PATHS"
-87-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
-88                android:resource="@xml/imagepicker_provider_paths" />
-88-->[:react-native-file-viewer] C:\Users\Rishav\Downloads\S-ONE-main\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
-89        </provider>
-90
-91        <activity
-91-->[com.facebook.react:react-android:0.73.2] C:\Users\Rishav\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:19:9-21:40
-92            android:name="com.facebook.react.devsupport.DevSettingsActivity"
-92-->[com.facebook.react:react-android:0.73.2] C:\Users\Rishav\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:20:13-77
-93            android:exported="false" />
-93-->[com.facebook.react:react-android:0.73.2] C:\Users\Rishav\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:21:13-37
-94
-95        <provider
-95-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Rishav\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-96            android:name="androidx.startup.InitializationProvider"
-96-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Rishav\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
-97            android:authorities="com.awesome01.androidx-startup"
-97-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Rishav\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
-98            android:exported="false" >
-98-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Rishav\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
-99            <meta-data
-99-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Rishav\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-100                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-100-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Rishav\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
-101                android:value="androidx.startup" />
-101-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Rishav\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
-102            <meta-data
-102-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Rishav\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-103                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-103-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Rishav\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-104                android:value="androidx.startup" />
-104-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Rishav\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-105        </provider>
-106
-107        <meta-data
-107-->[com.facebook.soloader:soloader:0.10.5] C:\Users\Rishav\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
-108            android:name="com.facebook.soloader.enabled"
-108-->[com.facebook.soloader:soloader:0.10.5] C:\Users\Rishav\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:13:13-57
-109            android:value="false" />
-109-->[com.facebook.soloader:soloader:0.10.5] C:\Users\Rishav\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:14:13-34
-110    </application>
-111
-112</manifest>
+25-->[:react-native-community_netinfo] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-76
+25-->[:react-native-community_netinfo] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\@react-native-community\netinfo\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-73
+26    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+26-->[:react-native-fs] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-fs\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
+26-->[:react-native-fs] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-fs\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-78
+27    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+28    <!--
+29    This manifest file is used only by Gradle to configure debug-only capabilities
+30    for React Native Apps.
+31    -->
+32    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+32-->[com.facebook.react:react-android:0.73.2] C:\Users\HP\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:16:5-78
+32-->[com.facebook.react:react-android:0.73.2] C:\Users\HP\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:16:22-75
+33
+34    <permission
+34-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+35        android:name="com.awesome01.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+35-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+36        android:protectionLevel="signature" />
+36-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+37
+38    <uses-permission android:name="com.awesome01.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+38-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+38-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+39
+40    <application
+40-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:5:5-24:19
+41        android:name="com.awesome01.MainApplication"
+41-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:6:7-38
+42        android:allowBackup="false"
+42-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:10:7-34
+43        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+43-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\13659b94c66de92d98d7f8af61234b95\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+44        android:debuggable="true"
+45        android:extractNativeLibs="true"
+46        android:icon="@mipmap/ic_launcher"
+46-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:8:7-41
+47        android:label="@string/app_name"
+47-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:7:7-39
+48        android:roundIcon="@mipmap/ic_launcher_round"
+48-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:9:7-52
+49        android:theme="@style/AppTheme"
+49-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:11:7-38
+50        android:usesCleartextTraffic="true" >
+50-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\debug\AndroidManifest.xml:6:9-44
+51        <activity
+51-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:12:7-23:18
+52            android:name="com.awesome01.MainActivity"
+52-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:13:9-37
+53            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+53-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:15:9-118
+54            android:exported="true"
+54-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:18:9-32
+55            android:label="@string/app_name"
+55-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:14:9-41
+56            android:launchMode="singleTask"
+56-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:16:9-40
+57            android:windowSoftInputMode="adjustResize" >
+57-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:17:9-51
+58            <intent-filter>
+58-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:19:9-22:25
+59                <action android:name="android.intent.action.MAIN" />
+59-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:20:13-65
+59-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:20:21-62
+60
+61                <category android:name="android.intent.category.LAUNCHER" />
+61-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:21:13-73
+61-->C:\Users\HP\StudioProjects\S-ONE-main FILE change\android\app\src\main\AndroidManifest.xml:21:23-70
+62            </intent-filter>
+63        </activity>
+64
+65        <provider
+65-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-16:20
+66            android:name="com.vinzscam.reactnativefileviewer.FileProvider"
+66-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-75
+67            android:authorities="com.awesome01.provider"
+67-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-60
+68            android:exported="false"
+68-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-37
+69            android:grantUriPermissions="true" >
+69-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-47
+70            <meta-data
+70-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
+71                android:name="android.support.FILE_PROVIDER_PATHS"
+71-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
+72                android:resource="@xml/file_viewer_provider_paths" />
+72-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
+73        </provider>
+74        <provider
+74-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-24:20
+75            android:name="com.reactnative.ivpusic.imagepicker.IvpusicImagePickerFileProvider"
+75-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-94
+76            android:authorities="com.awesome01.provider"
+76-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-60
+77            android:exported="false"
+77-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-37
+78            android:grantUriPermissions="true" >
+78-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:20:13-47
+79            <meta-data
+79-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
+80                android:name="android.support.FILE_PROVIDER_PATHS"
+80-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
+81                android:resource="@xml/ivpusic_imagepicker_provider_paths" />
+81-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
+82        </provider>
+83
+84        <activity
+84-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:26:9-28:72
+85            android:name="com.yalantis.ucrop.UCropActivity"
+85-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-60
+86            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+86-->[:react-native-image-crop-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-crop-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:13-69
+87
+88        <provider
+88-->[:react-native-image-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-16:20
+89            android:name="com.imagepicker.ImagePickerProvider"
+89-->[:react-native-image-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-63
+90            android:authorities="com.awesome01.imagepickerprovider"
+90-->[:react-native-image-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-71
+91            android:exported="false"
+91-->[:react-native-image-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-37
+92            android:grantUriPermissions="true" >
+92-->[:react-native-image-picker] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-47
+93            <meta-data
+93-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-15:70
+94                android:name="android.support.FILE_PROVIDER_PATHS"
+94-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:17-67
+95                android:resource="@xml/imagepicker_provider_paths" />
+95-->[:react-native-file-viewer] C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-file-viewer\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:17-67
+96        </provider>
+97
+98        <activity
+98-->[com.facebook.react:react-android:0.73.2] C:\Users\HP\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:19:9-21:40
+99            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+99-->[com.facebook.react:react-android:0.73.2] C:\Users\HP\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:20:13-77
+100            android:exported="false" />
+100-->[com.facebook.react:react-android:0.73.2] C:\Users\HP\.gradle\caches\transforms-3\d10d040f6dc36d35e250d48d5ebb15bd\transformed\jetified-react-android-0.73.2-debug\AndroidManifest.xml:21:13-37
+101
+102        <provider
+102-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+103            android:name="androidx.startup.InitializationProvider"
+103-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+104            android:authorities="com.awesome01.androidx-startup"
+104-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+105            android:exported="false" >
+105-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+106            <meta-data
+106-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+107                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+107-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+108                android:value="androidx.startup" />
+108-->[androidx.emoji2:emoji2:1.2.0] C:\Users\HP\.gradle\caches\transforms-3\faa3592d2fc203d6c74b9a5f601058a1\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+109            <meta-data
+109-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+110                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+110-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+111                android:value="androidx.startup" />
+111-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\HP\.gradle\caches\transforms-3\71b91ea8216105cda74b0317da307340\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+112        </provider>
+113
+114        <meta-data
+114-->[com.facebook.soloader:soloader:0.10.5] C:\Users\HP\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
+115            android:name="com.facebook.soloader.enabled"
+115-->[com.facebook.soloader:soloader:0.10.5] C:\Users\HP\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:13:13-57
+116            android:value="false" />
+116-->[com.facebook.soloader:soloader:0.10.5] C:\Users\HP\.gradle\caches\transforms-3\03d018e18e7118763cc731de8f689ba0\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:14:13-34
+117    </application>
+118
+119</manifest>

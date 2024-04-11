@@ -16,6 +16,7 @@ export default Images = {
   },
   BUTTONS: {
     BACK_BTN: require("../assets/Images/Back_Btn.png"),
+    SKIP: require("../assets/Images/Skip_Button.png"),
   },
   ICONS: {
     PDF: require("../assets/Icons/Pdf.png"),

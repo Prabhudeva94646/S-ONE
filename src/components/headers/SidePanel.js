@@ -4,60 +4,44 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../utils/Colors';
-import ImagePicker from 'react-native-image-crop-picker';
 
 export default function SideBar(props) {
   const [userName, setUserName] = useState('');
-  const [profileImage, setProfileImage] = useState(null);
+  const [employeeCode, setEmployeeCode] = useState('');
+  const [profileImage, setProfileImage] = useState('');
 
   useEffect(() => {
     const getUserName = async () => {
       try {
         setUserName(await AsyncStorage.getItem('employeeName'));
+        setEmployeeCode(await AsyncStorage.getItem('employeeCode')); // Retrieve employee code
       } catch (error) {
         console.error('Error retrieving user name: ', error);
       }
     };
 
+    const fetchProfileImage = async () => {
+      try {
+        const empCode = await AsyncStorage.getItem('employeeCode');
+        const response = await fetch(
+          `https://apps.sonalika.com:7007/WebService/api/SONE/GetUserProfilePic?EmpCode=${empCode}&Token=uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrFb3dZZuu6f7A66inioy1snV116crhfDo5gZ9TDP4nkTV0LgphjJMhB9rqcm4WcnZ`
+        );
+        const data = await response.json();
+        setProfileImage(data.FilePath);
+      } catch (error) {
+        console.error('Error fetching profile image:', error);
+      }
+    };
+
     getUserName();
-    getProfileImage(); // Load profile image when component mounts
+    fetchProfileImage();
   }, []);
-
-  useEffect(() => {
-    if (profileImage) {
-      saveProfileImage(profileImage); // Save profile image when it changes
-    }
-  }, [profileImage]);
-
-  const selectProfileImage = async () => {
-    try {
-      const pickedImage = await ImagePicker.openPicker({
-        width: 300,
-        height: 400,
-        cropping: true
-      });
-      setProfileImage(pickedImage.path);
-    } catch (error) {
-      console.log('Error picking image:', error);
-    }
-  };
 
   const saveProfileImage = async (imageUri) => {
     try {
       await AsyncStorage.setItem('profileImage', imageUri);
     } catch (error) {
       console.error('Error saving profile image:', error);
-    }
-  };
-
-  const getProfileImage = async () => {
-    try {
-      const imageUri = await AsyncStorage.getItem('profileImage');
-      if (imageUri !== null) {
-        setProfileImage(imageUri);
-      }
-    } catch (error) {
-      console.error('Error retrieving profile image:', error);
     }
   };
 
@@ -71,23 +55,45 @@ export default function SideBar(props) {
     }
   };
 
+  // Function to get initials from user name
+  const getInitials = (name) => {
+    const words = name.split(' ');
+    let initials = '';
+    for (let i = 0; i < words.length; i++) {
+      initials += words[i].charAt(0).toUpperCase();
+    }
+    return initials;
+  };
+
+  // Function to display profile image or initials
+  const displayProfileImage = () => {
+    if (profileImage) {
+      return <Image source={{ uri: profileImage }} style={styles.userIcon} />;
+    } else {
+      return (
+        <View style={[styles.userIcon, { backgroundColor: 'lightgrey' }]}>
+          <Text style={styles.initials}>{getInitials(userName)}</Text>
+        </View>
+      );
+    }
+  };
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerHeader}>
-        <TouchableOpacity onPress={selectProfileImage}>
+        <TouchableOpacity>
           <View style={styles.userInfo}>
-            {profileImage ? (
-              <Image source={{ uri: profileImage }} style={styles.userIcon} />
-            ) : (
-              <Icon name="user" size={60} color={Colors.BLACK} style={styles.userIcon} />
-            )}
-            <Text style={styles.userName}>{userName}</Text>
+            {displayProfileImage()}
+            <View style={styles.userInfoText}>
+              <Text style={styles.userName}>{userName}</Text>
+              <Text style={styles.employeeCode}>{employeeCode}</Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>
       <DrawerItem
-        label="HomeSreen"
-        onPress={() => props.navigation.navigate('Home',{screen: 'Home'})}
+        label="HomeScreen"
+        onPress={() => props.navigation.navigate('Home', { screen: 'Home' })}
         icon={({ color, size }) => <Icon name="home" size={size} color={color} />}
         labelStyle={styles.drawerItemLabel}
       />
@@ -110,22 +116,56 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  userIcon: {
+  userIconContainer: {
     width: 100,
     height: 100,
     borderRadius: 50,
     marginRight: 10,
     borderWidth: 1, // Add border
     borderColor: Colors.BLACK, // Border color
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#e0e0e0', // Add background color
+  },
+  userIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  userInfoText: {
+    flex: 1,
+    flexDirection: 'column',
+    marginLeft: 10,
   },
   userName: {
-    color: Colors.BLACK,
-    fontSize: 17,
+    color: 'gray',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
     flexWrap: 'wrap',
-    flex: 1,
+    maxWidth: '100%',
+  },
+  employeeCode: {
+    color: Colors.BLACK,
+    fontSize: 16,
+    flexWrap: 'wrap',
+    marginLeft: 25,
+    marginTop: 10,
+    maxWidth: '80%',
   },
   drawerItemLabel: {
     fontSize: 16,
     marginLeft: -15,
+  },
+  initials: {
+     marginTop: 28,
+    textAlign:'center',
+    //position:'relative',
+    color: Colors.WHITE,
+    fontSize: 30,
+    fontWeight: 'bold',
+    alignItems: 'center', // Center the initials text horizontally
+    justifyContent: 'center',
   },
 });

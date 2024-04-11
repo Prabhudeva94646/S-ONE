@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   Text,
+  RefreshControl,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -21,7 +22,7 @@ export default function ApprovalDetail() {
   const [len, setLen] = useState(0);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [refreshing, setRefreshing] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
   useEffect(() => {
@@ -37,33 +38,35 @@ export default function ApprovalDetail() {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      await apiCaller
-        .ListData(route.params.Category)
-        .then((resData) => {
-          if (resData) {
-            if (route.params.Dept) {
-              console.log("Dept:", route.params.Dept);
-              const filteredData = resData.Data.filter(
-                (item) =>
-                  item.RequestorDept.toLowerCase() ===
-                  route.params.Dept.toLowerCase()
-              );
-              setData(filteredData);
-              setLen(filteredData.length);
-            } else {
-              setData(resData.Data);
-              setLen(resData.Data.length);
-            }
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    };
     fetchData();
   }, [route.params]);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    await apiCaller
+      .ListData(route.params.Category)
+      .then((resData) => {
+        if (resData) {
+          if (route.params.Dept) {
+            const filteredData = resData.Data.filter(
+              (item) =>
+                item.RequestorDept.toLowerCase() ===
+                route.params.Dept.toLowerCase()
+            );
+            setData(filteredData);
+            setLen(filteredData.length);
+          } else {
+            setData(resData.Data);
+            setLen(resData.Data.length);
+          }
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setRefreshing(false); // Make sure to set refreshing to false when data fetching is completed
+      });
+  };
+
 
   const flatListRef = useRef(null);
 
@@ -86,9 +89,14 @@ export default function ApprovalDetail() {
   }, [currentSectionIndex]);
 
   const onScroll = useCallback(({ viewableItems }) => {
-    if (viewableItems.length === 1) {
+    if (viewableItems.length > 0) {
       setCurrentSectionIndex(viewableItems[0].index);
     }
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchData();
   }, []);
 
   if (isLoading) {
@@ -156,6 +164,9 @@ export default function ApprovalDetail() {
         showsHorizontalScrollIndicator={false}
         maxToRenderPerBatch={6}
         windowSize={5}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   );

@@ -37,20 +37,10 @@ export default function TableCmp({DocumentNo, ApprovalCategory, Item}) {
   }
 
   return (
-    <View
-      style={{
-        height: Dimensions.get('window').height,
-        width: Dimensions.get('window').width,
-      }}>
-      <View style={{width: 'auto', padding: 10, borderBottomWidth: 1}}>
-        <Text style={{color: Colors.BLACK, fontSize: 18, fontWeight: 'bold'}}>
-          {compData.ApprovalMapID}
-        </Text>
-        <Text style={{color: Colors.BLACK, fontSize: 15, fontWeight: 'bold', backgroundColor: Colors.LiGHTGRAY}}>
-          {compData.Message}
-        </Text>
-      </View>
-      <ScrollView horizontal={true} style={{}}>
+  <ScrollView>
+    <View>
+
+      <ScrollView horizontal={true} vertical={true} style={{}}>
         <View style={styles.container}>
           <View style={styles.row}>
             {data.map((item, index) => (
@@ -94,13 +84,16 @@ export default function TableCmp({DocumentNo, ApprovalCategory, Item}) {
         </View>
       </ScrollView>
     </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
+    paddingVertical:10,
     paddingTop: 10,
+    paddingBottom:10,
     color: Colors.BLACK,
     width: 'auto',
     alignItems: 'center',

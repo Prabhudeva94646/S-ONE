@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
+// @react-native-community/netinfo
+import com.reactnativecommunity.netinfo.NetInfoPackage;
+// lottie-react-native
+import com.airbnb.android.react.lottie.LottiePackage;
 // react-native-file-viewer
 import com.vinzscam.reactnativefileviewer.RNFileViewerPackage;
 // react-native-fs
@@ -82,6 +86,8 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
       new RNCMaskedViewPackage(),
+      new NetInfoPackage(),
+      new LottiePackage(),
       new RNFileViewerPackage(),
       new RNFSPackage(),
       new RNGestureHandlerPackage(),
