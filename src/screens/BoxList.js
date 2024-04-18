@@ -39,7 +39,7 @@ export default function BoxList() {
     try {
       const EmpCode = await AsyncStorage.getItem('employeeCode');
       const response = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetPendingApprovalsList?EmpCode=${EmpCode}&ApprovalCategory=${route.params.Category}&Token=${TOKEN}`
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetPendingApprovalsList?EmpCode=${EmpCode}&ApprovalCategory=${route.params.Category}&Token=${TOKEN}`
       );
       const responseData = await response.json();
       if (responseData.HasPendingApprovals) {

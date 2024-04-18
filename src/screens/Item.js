@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import ItemForm from '../components/approvalDetails/ItemForm';
 import SecondaryHeader from '../components/headers/SecondaryHeader';
+import Orientation from 'react-native-orientation-locker';
 
 export default function Item() {
   const navigation = useNavigation();
@@ -17,6 +18,16 @@ export default function Item() {
       backAction,
     );
     return () => backHandler.remove();
+  }, []);
+
+  useEffect(() => {
+    // Unlock screen orientation when the component mounts
+    Orientation.unlockAllOrientations();
+
+    // Clean up the effect when the component unmounts
+    return () => {
+      Orientation.lockToPortrait(); // Lock orientation to portrait when component unmounts
+    };
   }, []);
 
   return (

@@ -20,6 +20,8 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Images from "../../utils/Images.js";
 import Colors from "../../utils/Colors.js";
 import Loading from "../../components/loading/Loading";
+import DecisionScreen from "../../components/loading/DecisionScreen";
+import LottieView from 'lottie-react-native';
 import LoadingComponent from "../../components/loading/FileLoading";
 import { LinearGradient } from 'react-native-linear-gradient';
 import { KeyboardAvoidingView } from "react-native";
@@ -45,8 +47,14 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
   const [toggleReturn, setToogleReturn] = useState(false);
   const [buttonPressed, setButtonPressed] = useState(false);
   const [showFullHistory, setShowFullHistory] = useState(false);
+  const [returnit,setReturnit] = useState(false);
 
   const RemarkRef = useRef(null);
+
+    const handleDecision = (decision) => {
+      // Navigate to the DecisionScreen and pass the decision as a parameter
+      navigation.navigate('DecisionScreen', { decision });
+    }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,42 +87,125 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
   }, []);
 
 
-    const getData = async () => {
-      setToogleReturn(!toggleReturn);
-      const resData = await apiCaller.returnToList(DocumentNo, ApprovalCategory);
-      if (resData) {
-        setRemarkData({
-          ApprovalMapID: "",
-          Decision: "",
-          Remarks: "",
-          ReturnToEmpcode: "",
-        });
-        setReturnTo(resData.Data);
-        // Call postReturnAPI and show Alert after it completes
-        postReturnAPI().then(() => {
-          Alert.alert(
-            "Are you sure you want to RETURN?",
-            null,
-            [
-              {
-                text: "Yes",
-                onPress: () => {
-                  // Your logic for "Yes" button press
-                },
-              },
-              {
-                text: "No",
-                onPress: () => {
-                  RemarkRef.current.focus();
-                },
-              },
-            ]
-          );
-        });
-      }
+// ADDED THESE FUNCTIONS
+    const handleApprove = () => {
+      // Update state
+      setRemarkData({ ...remarkData, ReturnToEmpcode: "", Decision: "App" });
     };
 
+    useEffect(() => {
+      // Check if the Decision state is "App"
+      if (remarkData.Decision === "App") {
+        // Call the API if the Decision state is "App"
+        postReturnAPI().then(() => {
+          // Navigate to the animation screen after successful API call
+          navigation.navigate('DecisionScreen', { decision: 'Approved' });
+        });
+      }
+    }, [remarkData.Decision]); // Run this effect when the Decision state changes
 
+    const handleReject = () => {
+      // Update state
+      setRemarkData({ ...remarkData, ReturnToEmpcode: "", Decision: "Rej" });
+    };
+
+    useEffect(() => {
+      // Check if the Decision state is "Rej"
+      if (remarkData.Decision === "Rej") {
+        // Call the API if the Decision state is "Rej"
+        postReturnAPI().then(() => {
+          // Navigate to the animation screen after successful API call
+          navigation.navigate('DecisionScreen', { decision: 'Rejected' });
+        });
+      }
+    }, [remarkData.Decision]); // Run this effect when the Decision state changes
+
+
+     useEffect(() => {
+       // Check if the Decision state is "Ret"
+       if (returnit) {
+         // Call the API if the Decision state is "Ret"
+         postReturnAPI().then(() => {
+           // Navigate to the animation screen after successful API call
+           navigation.navigate('DecisionScreen', { decision: 'Returned' });
+         });
+       }
+     }, [returnit]); // Run this effect when the Decision state changes
+
+  const getData = async () => {
+    setToogleReturn(!toggleReturn);
+    const resData = await apiCaller.returnToList(DocumentNo, ApprovalCategory);
+    if (resData) {
+      // setRemarkData({
+      //   ApprovalMapID: "",
+      //   Decision: "",
+      //   Remarks: "",
+      //   ReturnToEmpcode: "",
+      // });
+      setReturnTo(resData.Data);
+      // Call postReturnAPI and show Alert after it completes
+    }
+  };
+
+    const handlereturnbtn = async () => {
+      Alert.alert("Are you sure you want to RETURN?", null, [
+        {
+          text: "Yes",
+          onPress: () => {
+            // Update the state to trigger the API call and navigation
+            setReturnit(true);
+          },
+        },
+        {
+          text: "No",
+          onPress: () => {
+            RemarkRef.current.focus();
+          },
+        },
+      ]);
+    };
+
+// TILL HERE
+{/*
+     const getData = async () => {
+       const resData = await apiCaller.returnToList(DocumentNo, ApprovalCategory);
+       setReturnTo(resData.Data);
+       console.log(resData.Data);
+
+       if (resData) {
+         setRemarkData({
+           ApprovalMapID: "",
+           Decision: "",
+           Remarks: "",
+           ReturnToEmpcode: "",
+         });
+         setReturnTo(resData.Data);
+
+        // Show alert before calling postReturnAPI
+         Alert.alert("Are you sure you want to RETURN?", null, [
+           {
+             text: "Yes",
+             onPress: async () => {
+               // Call postReturnAPI
+               await postReturnAPI();
+               // Navigate to the animation screen after successful API call
+               navigation.navigate('DecisionAnimation', { decision: 'Returned' });
+             },
+           },
+           {
+             text: "No",
+             onPress: () => {
+               RemarkRef.current.focus();
+             },
+           },
+         ]);
+         // Toggle the return-to employee selection view
+         setToogleReturn(!toggleReturn);
+
+       }
+
+     };
+*/}
   const postReturnAPI = async () => {
     const resData = await apiCaller.postRemark({ data: remarkData });
     console.log(remarkData);
@@ -193,8 +284,8 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
       style={{
         flex: 1,
         width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height-1000,
-        paddingBottom:20,
+        height: '100%',
+        paddingBottom:100,
       }}
     >
       <TouchableWithoutFeedback
@@ -203,12 +294,11 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
         accessible={false}
       >
         <View>
-
           <GestureScrollView
             nestedScrollEnabled={true}
             automaticallyAdjustKeyboardInsets={true}
             style={{}}
-            showsVerticalScrollIndicator={true}
+            showsVerticalScrollIndicator={false}
           >
             <View>
               <View style={styles.container}>
@@ -368,12 +458,12 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                 <View>
                   {!showFullHistory && (
                     <TouchableOpacity onPress={handleShowFullHistory}>
-                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold", alignSelf:"flex-end", marginLeft: 180,color: Colors.BLUE }}>...Show Full Approval History</Text>
+                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold",color: Colors.BLUE }}>...Show Full Approval History</Text>
                     </TouchableOpacity>
                   )}
                   {showFullHistory && (
                     <TouchableOpacity onPress={handleShowFirstIndex}>
-                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold", alignSelf:"flex-end", marginLeft: 280, color: Colors.BLUE }}>...Show Less</Text>
+                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold", color: Colors.BLUE }}>...Show Less</Text>
                     </TouchableOpacity>
                   )}
                 </View>
@@ -397,13 +487,13 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                         Files Attached ({files.length})-
                       </Text>
                     </View>
-                    <ScrollView
+                    <GestureScrollView
                       horizontal={true}
                       nestedScrollEnabled={true}
-                      showsHorizontalScrollIndicator={true}
-                      contentContainerStyle={{ flexDirection: 'row' }}
+                      showsHorizontalScrollIndicator={false}
+                      //contentContainerStyle={{ flexDirection: 'row' }}
                       style={[styles.files]}
-                      //pagingEnabled={true}
+                      pagingEnabled={true}
                     >
                       {files.map((item) => (
                         <View style={styles.infiles} key={item.FileName}>
@@ -459,7 +549,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                           </TouchableOpacity>
                         </View>
                       ))}
-                    </ScrollView>
+                    </GestureScrollView>
                   </View>
                 )}
 
@@ -508,12 +598,12 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
             style={{
               position: "absolute",
               width: "100%",
-              height: Dimensions.get("window").height - 80,
+              height: "100%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-end",
               alignItems: "flex-end",
-              paddingBottom: 20,
+              //paddingBottom: 0,
               paddingRight: 20,
             }}
           >
@@ -540,9 +630,9 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                       setRemarkData({
                         ...remarkData,
                         ReturnToEmpcode: item.ApproverEmpcode,
-                        Decision: "RETURN",
+                        Decision: "Ret",
                       }),
-                      postReturnAPI()
+                       handlereturnbtn()
                     )}
                   >
                     <Text
@@ -602,10 +692,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                       [
                         {
                           text: "Yes",
-                          onPress: () => {
-                            setRemarkData({ ...remarkData, Decision: "APPROVE" });
-                            postReturnAPI();
-                          },
+                          onPress: handleApprove,
                         },
                         {
                           text: "No",
@@ -641,6 +728,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                     RemarkRef.current.focus();
                   }
                   setButtonPressed(true);
+                  setToogleReturn(!toggleReturn);
                 }}
                 style={{ marginLeft: 10 }}
               >
@@ -665,10 +753,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                       [
                         {
                           text: "Yes",
-                          onPress: () => {
-                            setRemarkData({ ...remarkData, Decision: "REJECT" });
-                            postReturnAPI();
-                          },
+                          onPress: handleReject,
                         },
                         {
                           text: "No",
@@ -758,6 +843,7 @@ const styles = StyleSheet.create({
   },
   de: {
     marginTop: 15,
+    marginBottom: 10,
     marginLeft: 2,
     width: "100%",
   },
@@ -772,9 +858,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   files: {
-    marginRight: 5,
+    marginRight: 0,
     width: "100%",
-
     marginTop: 5,
     borderColor: Colors.BLACK,
     borderWidth:1,
@@ -782,10 +867,10 @@ const styles = StyleSheet.create({
   infiles: {
     width: "100%",
     alignItems: "center",
-    marginHorizontal: 5,
+    //marginHorizontal: 0,
     textAlign: "center",
     marginTop: 8,
-    marginBottom: 0,
+    marginBottom: 5,
     marginLeft: 15,
     marginRight: 15,
     //flexWrap: 'wrap', // Enables text wrapping
@@ -795,14 +880,14 @@ const styles = StyleSheet.create({
   re: {
     marginTop: 20,
     width: "100%",
-    marginBottom:5,
+    //marginBottom:5,
   },
   rema: {
     borderWidth: 1,
     borderColor: Colors.BLACK,
     width: "100%",
-    height: 100,
-    marginBottom: 100,
+    height: 150,
+    marginBottom: 120,
     color: Colors.BLACK,
   },
 });

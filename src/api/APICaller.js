@@ -48,7 +48,7 @@ export class APICaller {
   async AuthenticateUser(UserName = 13115, Password = 1) {
     try {
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/AuthenticateUser?UserName=${UserName}&Password=${Password}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/AuthenticateUser?UserName=${UserName}&Password=${Password}&Token=${TOKEN}`,
         {
           method: "GET",
         }
@@ -65,7 +65,7 @@ export class APICaller {
     try {
       const EmpCode = await AsyncStorage.getItem("employeeCode");
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetPendingApprovalsCount?EmpCode=${EmpCode}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetPendingApprovalsCount?EmpCode=${EmpCode}&Token=${TOKEN}`,
         { method: "GET" }
       );
       return res.json();
@@ -80,7 +80,7 @@ export class APICaller {
     try {
       const EmpCode = await AsyncStorage.getItem("employeeCode");
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetPendingApprovalsList?EmpCode=${EmpCode}&ApprovalCategory=${Category}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetPendingApprovalsList?EmpCode=${EmpCode}&ApprovalCategory=${Category}&Token=${TOKEN}`,
         { method: "GET" }
       );
       return res.json();
@@ -94,7 +94,7 @@ export class APICaller {
   async TableData(DocumentNo, ApprovalCategory) {
     try {
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetDocumentDetails?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetDocumentDetails?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
         { method: "GET" }
       );
       return res.json();
@@ -108,7 +108,7 @@ export class APICaller {
   async approvalHistory(DocumentNo, ApprovalCategory) {
     try {
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetApprovalHistory?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetApprovalHistory?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
         { method: "GET" }
       );
       const data = await res.json();
@@ -155,7 +155,7 @@ export class APICaller {
   async returnToList(DocumentNo, ApprovalCategory) {
     try {
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetReturnToList?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetReturnToList?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
         { method: "GET" }
       );
       return res.json();
@@ -169,7 +169,7 @@ export class APICaller {
   async postRemark({ data }) {
     try {
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/PostApproverDecision?ApprovalMapID=${data.ApprovalMapID}&Decision=${data.Decision}&Remarks=${data.Remarks}&ReturnToEmpcode=${data.ReturnToEmpcode}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/PostApproverDecision?ApprovalMapID=${data.ApprovalMapID}&Decision=${data.Decision}&Remarks=${data.Remarks}&ReturnToEmpcode=${data.ReturnToEmpcode}&Token=${TOKEN}`,
         { method: "POST" }
       );
       return res.json();
@@ -183,7 +183,7 @@ export class APICaller {
   async GetAttachedFiles(DocumentNo, ApprovalCategory) {
     try {
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetAttachedFiles?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetAttachedFiles?DocumentNo=${DocumentNo}&ApprovalCategory=${ApprovalCategory}&Token=${TOKEN}`,
         { method: "GET" }
       );
       return res.json();
@@ -199,7 +199,7 @@ export class APICaller {
     try {
       const EmpCode = await AsyncStorage.getItem("employeeCode");
       const res = await fetch(
-        `https://apps.sonalika.com:7007/WebService/api/SONE/GetUserProfilePic?EmpCode=${EmpCode}&Token=${TOKEN}`,
+        `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetUserProfilePic?EmpCode=${EmpCode}&Token=${TOKEN}`,
         { method: "GET" }
       );
       return res.json();

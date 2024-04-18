@@ -341,6 +341,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="C:\Users\HP\StudioProjects\S-ONE-main FILE change\android@@:react-native-orientation-locker::release"
+      jars="C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-orientation-locker\android\build\.transforms\d4c2f1edb879caa42e3d9aa8cb61ff96\transformed\out\jars\classes.jar;C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-orientation-locker\android\build\.transforms\d4c2f1edb879caa42e3d9aa8cb61ff96\transformed\out\jars\libs\R.jar"
+      resolved="Awesome01:react-native-orientation-locker:unspecified"
+      folder="C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-orientation-locker\android\build\.transforms\d4c2f1edb879caa42e3d9aa8cb61ff96\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="C:\Users\HP\StudioProjects\S-ONE-main FILE change\android@@:react-native-reanimated::release"
       jars="C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-reanimated\android\build\.transforms\50b93d9146c1ed12617c1f68b032ef40\transformed\out\jars\classes.jar;C:\Users\HP\StudioProjects\S-ONE-main FILE change\node_modules\react-native-reanimated\android\build\.transforms\50b93d9146c1ed12617c1f68b032ef40\transformed\out\jars\libs\R.jar"
       resolved="Awesome01:react-native-reanimated:unspecified"

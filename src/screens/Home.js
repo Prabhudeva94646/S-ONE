@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
+  ScrollView,
   BackHandler,
   Alert,
   RefreshControl,
@@ -90,6 +91,7 @@ export default function Home({ navigation }) {
         toggleMenu={toggleDrawer}
       />
       {data ? (
+      <ScrollView>
         <SwipeableFlatList
           data={data}
           contentContainerStyle={{ paddingBottom: 25 }}
@@ -98,6 +100,7 @@ export default function Home({ navigation }) {
               Category={item.ApprovalCategory}
               number={item.PendingCount}
               nt={"BoxList"}
+              fs={26}
               prop={{ Category: item.ApprovalCategory }}
             />
           )}
@@ -111,6 +114,7 @@ export default function Home({ navigation }) {
             height: Dimensions.get("window").height,
           }}
         />
+        </ScrollView>
       ) : (
         <Text
           style={{
@@ -121,7 +125,7 @@ export default function Home({ navigation }) {
             marginTop: 50,
           }}
         >
-          No data to Show
+          No Pending Requests
         </Text>
       )}
     </View>

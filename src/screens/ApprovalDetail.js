@@ -8,13 +8,15 @@ import {
   Dimensions,
   Text,
   RefreshControl,
+  ScrollView,
 } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, useFocusEffect } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import apiCaller from "../api/APICaller";
 import Form from "../components/approvalDetails/Form";
 import Loading from "../components/loading/Loading";
 import Colors from "../utils/Colors";
+import Orientation from 'react-native-orientation-locker';
 
 export default function ApprovalDetail() {
   const navigation = useNavigation();
@@ -22,8 +24,8 @@ export default function ApprovalDetail() {
   const [len, setLen] = useState(0);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     const backAction = () => {
@@ -40,6 +42,12 @@ export default function ApprovalDetail() {
   useEffect(() => {
     fetchData();
   }, [route.params]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchData(); // Fetch data whenever the screen gains focus
+    }, [])
+  );
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -67,6 +75,15 @@ export default function ApprovalDetail() {
       });
   };
 
+  useEffect(() => {
+    // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
+    Orientation.lockToPortrait();
+
+    // Clean up the effect when the component unmounts
+    return () => {
+      Orientation.unlockAllOrientations(); // Unlock all orientations when the component unmounts
+    };
+  }, []);
 
   const flatListRef = useRef(null);
 
@@ -115,58 +132,71 @@ export default function ApprovalDetail() {
     />
   );
 
+  const getLayout = (data, index) => ({
+    length: Dimensions.get("window").width,
+    offset: Dimensions.get("window").width * index,
+    index,
+  });
+
   return (
     <View>
-      <View
-        style={[
-          Style.Header,
-          { justifyContent: "flex-start", alignItems: "center" },
-        ]}
+      <ScrollView
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        showsVerticalScrollIndicator={false}
+        scrollEnabled={false}
       >
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
-          style={{ paddingLeft: 20, width: "20%", position: "absolute" }}
-        >
-          <Icon name="arrow-back" size={24} color={Colors.BLACK} />
-        </TouchableOpacity>
         <View
-          style={{
-            flexDirection: "row",
-            width: "100%",
-            height: 70,
-            alignItems: "flex-end",
-            justifyContent: "center",
-          }}
+          style={[
+            Style.Header,
+            { justifyContent: "flex-start", alignItems: "center" ,height: '85%'},
+          ]}
         >
-          <TouchableOpacity onPress={onBackPress}>
-            <Icon name="arrow-back" size={24} color={Colors.GRAY} />
-          </TouchableOpacity>
-          <Text
-            style={{ color: Colors.BLACK, fontSize: 18, marginHorizontal: 25 }}
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => navigation.goBack()}
+            style={{ paddingLeft: 20, width: "20%", position: "absolute" }}
           >
-            {currentSectionIndex + 1}/{len}
-          </Text>
-          <TouchableOpacity onPress={onNextPress}>
-            <Icon name="arrow-forward" size={24} color={Colors.GRAY} />
+            <Icon name="arrow-back" size={24} color={Colors.BLACK} />
           </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              height: 70,
+              alignItems: "center",
+              justifyContent: "center",
+              //flex:1,
+            }}
+          >
+            <TouchableOpacity onPress={onBackPress}>
+              <Icon name="arrow-back" size={24} color={Colors.GRAY} />
+            </TouchableOpacity>
+            <Text
+              style={{ color: Colors.BLACK, fontSize: 18, marginHorizontal: 25 }}
+            >
+              {currentSectionIndex + 1}/{len}
+            </Text>
+            <TouchableOpacity onPress={onNextPress}>
+              <Icon name="arrow-forward" size={24} color={Colors.GRAY} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ScrollView>
+
       <FlatList
         ref={flatListRef}
         data={data}
         renderItem={renderItem}
         initialNumToRender={2}
         onViewableItemsChanged={onScroll}
+        getItemLayout={getLayout}
+        initialScrollIndex={currentSectionIndex}
         keyExtractor={(item) => item.DocumentNo}
         horizontal={true}
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
         maxToRenderPerBatch={6}
         windowSize={5}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
       />
     </View>
   );

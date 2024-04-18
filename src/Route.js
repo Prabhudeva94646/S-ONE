@@ -15,6 +15,7 @@ import ApprovalDetail from "./screens/ApprovalDetail.js";
 import Response from "./screens/Response.js";
 import DrawerItems from "./Constants/DrawerItems.js";
 import SideBar from "./components/headers/SidePanel.js";
+import DecisionScreen from "./components/loading/DecisionScreen.js";
 import Item from "./screens/Item.js";
 
 const Stack = createNativeStackNavigator();
@@ -49,6 +50,7 @@ const SecondaryStack = () => (
     <Stack.Screen name="ApprovalDetail" component={ApprovalDetail} />
     <Stack.Screen name="Item" component={Item} />
     <Stack.Screen name="Response" component={Response} />
+    <Stack.Screen name="DecisionScreen" component={DecisionScreen} />
   </Stack.Navigator>
 );
 
@@ -68,7 +70,7 @@ const DrawerStack = () => (
     backBehavior={"none"}
     screenOptions={{ headerShown: false }}
     drawerContentOptions={{
-      gestureResponseDistance: { horizontal: 0 },
+      gestureResponseDistance: { horizontal: 25 },
     }}
   >
     <Drawer.Screen name="Home" component={SecondaryStack} />

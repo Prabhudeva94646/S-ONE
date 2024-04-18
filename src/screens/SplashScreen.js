@@ -3,6 +3,7 @@ import { View, ActivityIndicator, StyleSheet, Image, ImageBackground, Dimensions
 import { useNavigation } from '@react-navigation/native'; // Import navigation hook
 import Images from '../utils/Images';
 import Colors from '../utils/Colors';
+import Orientation from 'react-native-orientation-locker';
 
 const SplashScreen = () => {
   const navigation = useNavigation(); // Navigation hook
@@ -15,6 +16,17 @@ const SplashScreen = () => {
 
     return () => clearTimeout(timer);
   }, [navigation]);
+
+  useEffect(() => {
+    // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
+    Orientation.lockToPortrait();
+
+    // Clean up the effect when the component unmounts
+    return () => {
+      Orientation.unlockAllOrientations(); // Unlock all orientations when the component unmounts
+    };
+  }, []);
+
 
   return (
     <ImageBackground

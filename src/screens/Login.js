@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
+  ScrollView,
   Text,
   ImageBackground,
   TextInput,
@@ -16,11 +17,13 @@ import style from '../utils/Style';
 import Colors from '../utils/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Orientation from 'react-native-orientation-locker';
+import Loading from "../components/loading/Loading";
 
 const authenticateUser = async (empcode, password, navigation) => {
     try {
         const response = await fetch(
-            `https://apps.sonalika.com:7007/WebService/api/SONE/AuthenticateUser?UserName=${empcode}&Password=${password}&Token=uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrFb3dZZuu6f7A66inioy1snV116crhfDo5gZ9TDP4nkTV0LgphjJMhB9rqcm4WcnZ`
+            `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/AuthenticateUser?UserName=${empcode}&Password=${password}&Token=uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrFb3dZZuu6f7A66inioy1snV116crhfDo5gZ9TDP4nkTV0LgphjJMhB9rqcm4WcnZ`
         );
         const data = await response.json();
 
@@ -47,6 +50,17 @@ function Login({ navigation }) {
     const [errorMsg, setErrorMsg] = useState(
         'Something Went Wrong !! Try Again Later !!',
     );
+    const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
+    Orientation.lockToPortrait();
+
+    // Clean up the effect when the component unmounts
+    return () => {
+      Orientation.lockToPortrait();; // Unlock all orientations when the component unmounts
+    };
+  }, []);
 
     useEffect(() => {
         const backAction = () => {
@@ -73,6 +87,10 @@ function Login({ navigation }) {
             const psw = await AsyncStorage.getItem('rememberedPassword');
             if (empcode && psw) {
                 setUserData({ ...userData, empcode, psw, isChecked: true });
+                setIsLoading(false);
+                navigation.replace('drawer');
+            } else {
+                setIsLoading(false);
             }
         };
         fetchRememberedData();
@@ -114,6 +132,14 @@ function Login({ navigation }) {
         }
     };
 
+    if (isLoading) {
+        return (
+            <View style={{}}>
+                <Loading />
+            </View>
+        );
+    }
+
     return (
         <View>
             <ImageBackground
@@ -135,8 +161,13 @@ function Login({ navigation }) {
                             value={userData.empcode}
                             placeholder="Employee Code"
                             placeholderTextColor={Colors.GRAY}
-                            onChangeText={(val) => {
-                                setUserData({ ...userData, empcode: val });
+                             keyboardType="numeric" // Restrict input to numeric characters
+                                returnKeyType="next" // Change keyboard return key to "Next"
+                                onChangeText={(val) => {
+                                  // Validate if the entered value is numeric (optional)
+                                  if (/^\d+$/.test(val) || val === '') {
+                                    setUserData({ ...userData, empcode: val });
+                             }
                             }}
                         />
                         <View
@@ -184,7 +215,7 @@ function Login({ navigation }) {
                                     color: Colors.BLACK,
                                     marginLeft: 5,
                                 }}>
-                                Remember Me
+                                Keep Me Signed In
                             </Text>
                         </View>
                     </View>

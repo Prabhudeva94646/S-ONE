@@ -24,7 +24,7 @@ export default function SideBar(props) {
       try {
         const empCode = await AsyncStorage.getItem('employeeCode');
         const response = await fetch(
-          `https://apps.sonalika.com:7007/WebService/api/SONE/GetUserProfilePic?EmpCode=${empCode}&Token=uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrFb3dZZuu6f7A66inioy1snV116crhfDo5gZ9TDP4nkTV0LgphjJMhB9rqcm4WcnZ`
+          `https://apps.sonalika.com:7007/WebServiceDev/api/SONE/GetUserProfilePic?EmpCode=${empCode}&Token=uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrFb3dZZuu6f7A66inioy1snV116crhfDo5gZ9TDP4nkTV0LgphjJMhB9rqcm4WcnZ`
         );
         const data = await response.json();
         setProfileImage(data.FilePath);
@@ -47,6 +47,9 @@ export default function SideBar(props) {
 
   const handleLogout = async () => {
     try {
+      // CHANGE HERE
+      await AsyncStorage.removeItem('rememberedEmployeeCode');
+      await AsyncStorage.removeItem('rememberedPassword');
       await AsyncStorage.removeItem('employeeCode');
       await AsyncStorage.removeItem('profileImage'); // Clear profile image on logout
       props.navigation.navigate('Login');
@@ -71,7 +74,7 @@ export default function SideBar(props) {
       return <Image source={{ uri: profileImage }} style={styles.userIcon} />;
     } else {
       return (
-        <View style={[styles.userIcon, { backgroundColor: 'lightgrey' }]}>
+        <View style={[styles.userIcon, { backgroundColor: 'silver' }]}>
           <Text style={styles.initials}>{getInitials(userName)}</Text>
         </View>
       );
@@ -81,7 +84,7 @@ export default function SideBar(props) {
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerHeader}>
-        <TouchableOpacity>
+
           <View style={styles.userInfo}>
             {displayProfileImage()}
             <View style={styles.userInfoText}>
@@ -89,7 +92,7 @@ export default function SideBar(props) {
               <Text style={styles.employeeCode}>{employeeCode}</Text>
             </View>
           </View>
-        </TouchableOpacity>
+          <View style={styles.horizontalLine} />
       </View>
       <DrawerItem
         label="HomeScreen"
@@ -109,8 +112,8 @@ export default function SideBar(props) {
 
 const styles = StyleSheet.create({
   drawerHeader: {
-    paddingVertical: 25,
-    paddingHorizontal: 25,
+    paddingVertical: '20%',
+    paddingHorizontal: '15%',
   },
   userInfo: {
     flexDirection: 'row',
@@ -120,7 +123,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginRight: 10,
+    //marginRight: 10,
     borderWidth: 1, // Add border
     borderColor: Colors.BLACK, // Border color
     alignItems: 'center',
@@ -131,7 +134,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginRight: 10,
+    borderWidth: 1, // Add border
+    borderColor: 'dimgray', // Border color
+    //marginRight: 10,
   },
   userInfoText: {
     flex: 1,
@@ -150,22 +155,30 @@ const styles = StyleSheet.create({
     color: Colors.BLACK,
     fontSize: 16,
     flexWrap: 'wrap',
-    marginLeft: 25,
-    marginTop: 10,
-    maxWidth: '80%',
+    textAlign: 'center',
+    marginTop: '5%',
   },
   drawerItemLabel: {
     fontSize: 16,
-    marginLeft: -15,
+    marginLeft: '-10%',
   },
   initials: {
-     marginTop: 28,
+    marginTop: '30%',
+    //paddingVertical: '27%',
+    height:100,
+    width:100,
     textAlign:'center',
-    //position:'relative',
+    position:'absolute',
     color: Colors.WHITE,
     fontSize: 30,
     fontWeight: 'bold',
     alignItems: 'center', // Center the initials text horizontally
     justifyContent: 'center',
+  },
+  horizontalLine: {
+    borderBottomWidth: 2,
+    borderBottomColor: 'darkgray', // Adjust color as needed
+    marginTop: '25%', // Adjust margin as needed
+    marginBottom: '-20%',
   },
 });

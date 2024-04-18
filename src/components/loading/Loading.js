@@ -38,7 +38,7 @@ export default function Loading() {
 
               </View>
       ) : (
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'center', height: Dimensions.get('window').height, width: '100%' }}>
 
           <LottieView
             source={NoInternetAnimation}
