@@ -24,16 +24,16 @@ export default function Loading() {
     <View style={{ justifyContent: 'center', alignItems: 'center', height: Dimensions.get('window').height, width: '100%' }}>
       {isConnected ? (
         <View style={styles.container}>
+                <View style={styles.whiteCircle} />
+                <View style={styles.spinnerContainer}>
+                  <ActivityIndicator size={100} color={Colors.BLUE} />
+                </View>
                 <View style={styles.logoContainer}>
                   <Image
                     source={Images.LOGOS.SLOGO} // Add your logo image source here
                     style={styles.logo}
                     resizeMode="contain"
                   />
-                </View>
-                <View style={styles.whiteCircle} />
-                <View style={styles.spinnerContainer}>
-                  <ActivityIndicator size={100} color={Colors.BLUE} />
                 </View>
 
               </View>

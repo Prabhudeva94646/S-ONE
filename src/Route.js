@@ -43,7 +43,7 @@ const MainStack = () => (
 const SecondaryStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={Home} />
-    <Stack.Screen name="List" component={List} />
+
     <Stack.Screen name="BoxList" component={BoxList} />
     <Stack.Screen name="BoxList2" component={BoxList2} />
     <Stack.Screen name="List_from_BoxList" component={List_from_BoxList} />

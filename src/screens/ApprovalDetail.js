@@ -10,7 +10,7 @@ import {
   RefreshControl,
   ScrollView,
 } from "react-native";
-import { useNavigation, useRoute, useFocusEffect } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import apiCaller from "../api/APICaller";
 import Form from "../components/approvalDetails/Form";
@@ -24,8 +24,13 @@ export default function ApprovalDetail() {
   const [len, setLen] = useState(0);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-  const [refreshing, setRefreshing] = useState(false);
+
+    // CHANGE HERE:
+    const [currentSectionIndex, setCurrentSectionIndex] = useState(
+      route.params.index
+    );
+
+    const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     const backAction = () => {
@@ -42,12 +47,6 @@ export default function ApprovalDetail() {
   useEffect(() => {
     fetchData();
   }, [route.params]);
-
-  useFocusEffect(
-    useCallback(() => {
-      fetchData(); // Fetch data whenever the screen gains focus
-    }, [])
-  );
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -79,10 +78,6 @@ export default function ApprovalDetail() {
     // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
     Orientation.lockToPortrait();
 
-    // Clean up the effect when the component unmounts
-    return () => {
-      Orientation.unlockAllOrientations(); // Unlock all orientations when the component unmounts
-    };
   }, []);
 
   const flatListRef = useRef(null);
@@ -129,58 +124,60 @@ export default function ApprovalDetail() {
       key={item.DocumentNo}
       DocumentNo={item.DocumentNo}
       ApprovalCategory={route.params.Category}
+      Dept={route.params.Dept}
     />
   );
 
-  const getLayout = (data, index) => ({
-    length: Dimensions.get("window").width,
-    offset: Dimensions.get("window").width * index,
-    index,
-  });
+    const getLayout = (data, index) => ({
+      length: Dimensions.get("window").width,
+      offset: Dimensions.get("window").width * index,
+      index,
+    });
+
 
   return (
     <View>
       <ScrollView
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-        showsVerticalScrollIndicator={false}
-        scrollEnabled={false}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+      showsVerticalScrollIndicator={false}
+      scrollEnabled={false}>
+      <View
+        style={[
+          Style.Header,
+          { justifyContent: "flex-start", alignItems: "center" ,height: '91%'},
+        ]}
       >
-        <View
-          style={[
-            Style.Header,
-            { justifyContent: "flex-start", alignItems: "center" ,height: '85%'},
-          ]}
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.goBack()}
+          style={{ paddingLeft: 20, width: "20%", position: "absolute" }}
         >
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => navigation.goBack()}
-            style={{ paddingLeft: 20, width: "20%", position: "absolute" }}
-          >
-            <Icon name="arrow-back" size={24} color={Colors.BLACK} />
+          <Icon name="arrow-back" size={24} color={Colors.BLACK} />
+        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            height: 80,
+            alignItems: "center",
+            justifyContent: "center",
+            //flex:1,
+          }}
+        >
+          <TouchableOpacity onPress={onBackPress}>
+            <Icon name="arrow-back" size={24} color={Colors.GRAY} />
           </TouchableOpacity>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              height: 70,
-              alignItems: "center",
-              justifyContent: "center",
-              //flex:1,
-            }}
+          <Text
+            style={{ color: Colors.BLACK, fontSize: 18, marginHorizontal: 25 }}
           >
-            <TouchableOpacity onPress={onBackPress}>
-              <Icon name="arrow-back" size={24} color={Colors.GRAY} />
-            </TouchableOpacity>
-            <Text
-              style={{ color: Colors.BLACK, fontSize: 18, marginHorizontal: 25 }}
-            >
-              {currentSectionIndex + 1}/{len}
-            </Text>
-            <TouchableOpacity onPress={onNextPress}>
-              <Icon name="arrow-forward" size={24} color={Colors.GRAY} />
-            </TouchableOpacity>
-          </View>
+            {currentSectionIndex + 1}/{len}
+          </Text>
+          <TouchableOpacity onPress={onNextPress}>
+            <Icon name="arrow-forward" size={24} color={Colors.GRAY} />
+          </TouchableOpacity>
         </View>
+      </View>
       </ScrollView>
 
       <FlatList
@@ -189,14 +186,19 @@ export default function ApprovalDetail() {
         renderItem={renderItem}
         initialNumToRender={2}
         onViewableItemsChanged={onScroll}
+
+        // CHANGED HERE:
         getItemLayout={getLayout}
         initialScrollIndex={currentSectionIndex}
+
         keyExtractor={(item) => item.DocumentNo}
         horizontal={true}
         pagingEnabled={true}
         showsHorizontalScrollIndicator={false}
         maxToRenderPerBatch={6}
         windowSize={5}
+        keyboardDismissMode="none"
+        keyboardShouldPersistTaps={"handled"}
       />
     </View>
   );

@@ -87,11 +87,11 @@ export default function SideBar(props) {
 
           <View style={styles.userInfo}>
             {displayProfileImage()}
+          </View>
             <View style={styles.userInfoText}>
               <Text style={styles.userName}>{userName}</Text>
               <Text style={styles.employeeCode}>{employeeCode}</Text>
             </View>
-          </View>
           <View style={styles.horizontalLine} />
       </View>
       <DrawerItem
@@ -112,11 +112,12 @@ export default function SideBar(props) {
 
 const styles = StyleSheet.create({
   drawerHeader: {
-    paddingVertical: '20%',
-    paddingHorizontal: '15%',
+    paddingVertical: '15%',
+    paddingHorizontal: '10%',
   },
   userInfo: {
-    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   userIconContainer: {
@@ -139,9 +140,10 @@ const styles = StyleSheet.create({
     //marginRight: 10,
   },
   userInfoText: {
+    marginTop: '15%',
     flex: 1,
     flexDirection: 'column',
-    marginLeft: 10,
+    //marginLeft: 10,
   },
   userName: {
     color: 'gray',
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
   horizontalLine: {
     borderBottomWidth: 2,
     borderBottomColor: 'darkgray', // Adjust color as needed
-    marginTop: '25%', // Adjust margin as needed
-    marginBottom: '-20%',
+    marginTop: '12%', // Adjust margin as needed
+    marginBottom: '-12%',
   },
 });

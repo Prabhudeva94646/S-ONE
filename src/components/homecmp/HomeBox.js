@@ -11,7 +11,7 @@ export default function HomeBox({Category, number, nt, prop, fs}) {
   return (
     <View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('List', {Category: Category})}
+        onPress={() => navigation.navigate('List_from_BoxList', {Category: Category})}
         activeOpacity={0.8}>
         <View style={{width: '100%', alignItems: 'center'}}>
           <LinearGradient

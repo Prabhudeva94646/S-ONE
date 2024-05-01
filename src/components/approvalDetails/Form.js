@@ -28,7 +28,7 @@ import { KeyboardAvoidingView } from "react-native";
 import FileViewer from "react-native-file-viewer";
 import RNFS from "react-native-fs";
 
-export default function Form({ DocumentNo, ApprovalCategory }) {
+export default function Form({ DocumentNo, ApprovalCategory,Dept }) {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [files, setFiles] = useState([]);
@@ -48,12 +48,28 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
   const [buttonPressed, setButtonPressed] = useState(false);
   const [showFullHistory, setShowFullHistory] = useState(false);
   const [returnit,setReturnit] = useState(false);
+  // Define an object mapping content types to image sources
+  const contentTypeImages = {
+    "application/pdf": Images.ICONS.PDF,
+    "application/msword": Images.ICONS.WORD,
+    "image/png": Images.ICONS.IMAGE,
+    "image/jpeg": Images.ICONS.IMAGE,
+    "application/vnd.ms-excel": Images.ICONS.SHEETS,
+    "message/rfc822": Images.ICONS.EML,
+  };
+
+  // Define a default image source for unknown content types
+  const defaultImage = Images.ICONS.UNKNOWN;
 
   const RemarkRef = useRef(null);
 
     const handleDecision = (decision) => {
       // Navigate to the DecisionScreen and pass the decision as a parameter
-      navigation.navigate('DecisionScreen', { decision });
+      navigation.navigate('DecisionScreen', {
+      decision,
+      Category,
+      VERTICAL_NAME,
+       });
     }
 
   useEffect(() => {
@@ -99,7 +115,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
         // Call the API if the Decision state is "App"
         postReturnAPI().then(() => {
           // Navigate to the animation screen after successful API call
-          navigation.navigate('DecisionScreen', { decision: 'Approved' });
+          navigation.navigate('DecisionScreen', { decision: 'Approved', Category: ApprovalCategory, VERTICAL_NAME: Dept});
         });
       }
     }, [remarkData.Decision]); // Run this effect when the Decision state changes
@@ -115,7 +131,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
         // Call the API if the Decision state is "Rej"
         postReturnAPI().then(() => {
           // Navigate to the animation screen after successful API call
-          navigation.navigate('DecisionScreen', { decision: 'Rejected' });
+          navigation.navigate('DecisionScreen', { decision: 'Rejected' , Category: ApprovalCategory, VERTICAL_NAME: Dept});
         });
       }
     }, [remarkData.Decision]); // Run this effect when the Decision state changes
@@ -127,7 +143,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
          // Call the API if the Decision state is "Ret"
          postReturnAPI().then(() => {
            // Navigate to the animation screen after successful API call
-           navigation.navigate('DecisionScreen', { decision: 'Returned' });
+           navigation.navigate('DecisionScreen', { decision: 'Returned' , Category: ApprovalCategory, VERTICAL_NAME: Dept});
          });
        }
      }, [returnit]); // Run this effect when the Decision state changes
@@ -136,19 +152,13 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
     setToogleReturn(!toggleReturn);
     const resData = await apiCaller.returnToList(DocumentNo, ApprovalCategory);
     if (resData) {
-      // setRemarkData({
-      //   ApprovalMapID: "",
-      //   Decision: "",
-      //   Remarks: "",
-      //   ReturnToEmpcode: "",
-      // });
       setReturnTo(resData.Data);
       // Call postReturnAPI and show Alert after it completes
     }
   };
 
-    const handlereturnbtn = async () => {
-      Alert.alert("Are you sure you want to RETURN?", null, [
+    const handlereturnbtn = async (approverName) => {
+      Alert.alert("Are you sure you want to RETURN to "+ (approverName)+" ?", null, [
         {
           text: "Yes",
           onPress: () => {
@@ -166,46 +176,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
     };
 
 // TILL HERE
-{/*
-     const getData = async () => {
-       const resData = await apiCaller.returnToList(DocumentNo, ApprovalCategory);
-       setReturnTo(resData.Data);
-       console.log(resData.Data);
 
-       if (resData) {
-         setRemarkData({
-           ApprovalMapID: "",
-           Decision: "",
-           Remarks: "",
-           ReturnToEmpcode: "",
-         });
-         setReturnTo(resData.Data);
-
-        // Show alert before calling postReturnAPI
-         Alert.alert("Are you sure you want to RETURN?", null, [
-           {
-             text: "Yes",
-             onPress: async () => {
-               // Call postReturnAPI
-               await postReturnAPI();
-               // Navigate to the animation screen after successful API call
-               navigation.navigate('DecisionAnimation', { decision: 'Returned' });
-             },
-           },
-           {
-             text: "No",
-             onPress: () => {
-               RemarkRef.current.focus();
-             },
-           },
-         ]);
-         // Toggle the return-to employee selection view
-         setToogleReturn(!toggleReturn);
-
-       }
-
-     };
-*/}
   const postReturnAPI = async () => {
     const resData = await apiCaller.postRemark({ data: remarkData });
     console.log(remarkData);
@@ -290,8 +261,8 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
     >
       <TouchableWithoutFeedback
         style={{ flex: 1 }}
-        onPress={Keyboard.dismiss}
-        accessible={false}
+        //onPress={Keyboard.dismiss}
+        //accessible={false}
       >
         <View>
           <GestureScrollView
@@ -332,22 +303,22 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                     </View>
                   ))}
                 </View>
-                {!showAllRows && (
+              {data.length >= 7 && (
+                !showAllRows ? (
                   <TouchableOpacity
                     onPress={handleShowMore}
                     style={styles.moreButton}
                   >
                     <Text style={styles.moreText}>...more</Text>
                   </TouchableOpacity>
-                )}
-                {showAllRows && (
+                ) : (
                   <TouchableOpacity
                     onPress={handleShowLess}
                     style={styles.moreButton}
                   >
                     <Text style={styles.moreText}>...less</Text>
                   </TouchableOpacity>
-                )}
+                ))}
 
                 <TouchableOpacity
                   onPress={() => {
@@ -390,87 +361,156 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                   </Text>
                 </TouchableOpacity>
 
-                <View style={styles.de}>
-                  <Text
-                    style={{ color: Colors.BLACK, width: "100%", fontSize: 15 ,fontWeight: 'bold'}}
-                  >
-                    Approval Flow Details-
+        <View>
+          {history.length === 0 && (
+            <Text style={{ color: Colors.BLACK, fontSize: 17, paddingTop: 15, fontWeight: 'bold' , color: 'gray'}}>
+              * No Approval History *
+            </Text>
+          )}
+
+          {history.length === 1 && (
+            <View>
+              <View style={styles.de}>
+                <Text style={{ color: Colors.BLACK, width: "100%", fontSize: 15, fontWeight: 'bold' }}>
+                  Approval Flow Details-
+                </Text>
+              </View>
+              <LinearGradient
+                colors={getGradientColors(history[0].ApproverDecisionStatus)}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={[styles.approval, getApprovalTileStyle(history[0].ApproverDecisionStatus)]}
+              >
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
+                  <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                    <Text style={[styles.add, { width: "35.2%", borderLeftWidth: 0 }]}>
+                      Date & Time
+                    </Text>
+                    <Text style={[styles.add, { width: "50%" }]}>
+                      {history[0].ApproverActionDate}
+                    </Text>
+                  </View>
+                  <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                    {history[0].ApproverDecisionStatus === 'APPROVED' && (
+                      <Image
+                        source={Images.APPROVE_SCREEN_BTN.APPROVE}
+                        style={{ width: 30, height: 30, marginRight: 5 ,marginTop: 5}}
+                      />
+                    )}
+                    {history[0].ApproverDecisionStatus === 'RETURN' && (
+                      <Image
+                        source={Images.APPROVE_SCREEN_BTN.HISTORY}
+                        style={{ width: 30, height: 30, marginRight: 5 ,marginTop: 5 }}
+                      />
+                    )}
+                    {history[0].ApproverDecisionStatus !== 'APPROVED' && history[0].ApproverDecisionStatus !== 'RETURN' && (
+                      <Image
+                        source={Images.BUTTONS.SKIP}
+                        style={{width: 30, height: 30, marginRight: 5 ,marginTop: 5}}
+                      />
+                    )}
+                  </View>
+                </View>
+                <View style={{ width: "100%", flexDirection: "row" }}>
+                  <Text style={[styles.add, { width: "30%", borderLeftWidth: 0 }]}>By</Text>
+                  <Text style={[styles.add, { width: "50%" }]}>
+                    {history[0].ApproverName}
                   </Text>
                 </View>
-                {history.slice(showFullHistory ? 0 : history.length - 1, history.length).map((approval, index) => (
-                  <View key={index}>
-                    <LinearGradient
-                      colors={getGradientColors(approval.ApproverDecisionStatus)}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 1 }}
-                      style={[styles.approval, getApprovalTileStyle(approval.ApproverDecisionStatus)]}
-                    >
-                      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
-                        <View style={{ flexDirection: "row", alignItems: 'center' }}>
-                          <Text style={[styles.add, { width: "30%", borderLeftWidth: 0 }]}>
-                            Date & Time
-                          </Text>
-                          <Text style={[styles.add, { width: "40%"}]}>
-                            {approval.ApproverActionDate}
-                          </Text>
-                        </View>
-                        <View style={{ flexDirection: "row", alignItems: 'center' }}>
-                          {approval.ApproverDecisionStatus === 'APPROVED' && (
-                            <Image
-                              source={Images.APPROVE_SCREEN_BTN.APPROVE}
-                              style={{ width: 30, height: 30, marginRight: 10 }}
-                            />
-                          )}
-                          {approval.ApproverDecisionStatus === 'RETURN' && (
-                            <Image
-                              source={Images.APPROVE_SCREEN_BTN.HISTORY}
-                              style={{ width: 30, height: 30, marginRight: 10 }}
-                            />
-                          )}
-                          {approval.ApproverDecisionStatus !== 'APPROVED' && approval.ApproverDecisionStatus !== 'RETURN' && (
-                            <Image
-                              source={Images.BUTTONS.SKIP}
-                              style={{ width: 30, height: 30, marginRight: 10 }}
-                            />
-                          )}
-                        </View>
-                      </View>
-                      <View style={{ width: "100%", flexDirection: "row" }}>
-                        <Text style={[styles.add, {width: "21%", borderLeftWidth: 0 }]}>By</Text>
-                        <Text style={[styles.add, { width: "30%" }]}>
-                          {approval.ApproverName}
-                        </Text>
-                      </View>
-                      <View style={{ width: "100%", flexDirection: "row" }}>
-                        <Text style={[styles.add, { width: "21%", borderLeftWidth: 0 }]}>
-                          Remarks
-                        </Text>
-                        <Text style={[styles.add, { width: "80%" }]}>
-                          {approval.ApproverRemarks}
-                        </Text>
-                      </View>
-                    </LinearGradient>
-                    <View style={{ marginBottom: 10 }} />
-                  </View>
-
-                ))}
-
-                <View>
-                  {!showFullHistory && (
-                    <TouchableOpacity onPress={handleShowFullHistory}>
-                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold",color: Colors.BLUE }}>...Show Full Approval History</Text>
-                    </TouchableOpacity>
-                  )}
-                  {showFullHistory && (
-                    <TouchableOpacity onPress={handleShowFirstIndex}>
-                      <Text style={{ textDecorationLine: "underline", fontWeight:"bold", color: Colors.BLUE }}>...Show Less</Text>
-                    </TouchableOpacity>
-                  )}
+                <View style={{ width: "100%", flexDirection: "row" }}>
+                  <Text style={[styles.add, { width: "30%", borderLeftWidth: 0 }]}>
+                    Remarks
+                  </Text>
+                  <Text style={[styles.add, { width: "70%" }]}>
+                    {history[0].ApproverRemarks}
+                  </Text>
                 </View>
+              </LinearGradient>
+            </View>
+          )}
+
+          {history.length > 1 && (
+            <View>
+              <View style={styles.de}>
+                <Text style={{ color: Colors.BLACK, width: "100%", fontSize: 15, fontWeight: 'bold' }}>
+                  Approval Flow Details-
+                </Text>
+              </View>
+              {history.slice(showFullHistory ? 0 : history.length - 1, history.length).map((approval, index) => (
+                <View key={index}>
+                  <LinearGradient
+                    colors={getGradientColors(approval.ApproverDecisionStatus)}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={[styles.approval, getApprovalTileStyle(approval.ApproverDecisionStatus)]}
+                  >
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
+                      <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                        <Text style={[styles.add, { width: "35.2%", borderLeftWidth: 0 }]}>
+                          Date & Time
+                        </Text>
+                        <Text style={[styles.add, { width: "50%" }]}>
+                          {approval.ApproverActionDate}
+                        </Text>
+                      </View>
+                      <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                        {approval.ApproverDecisionStatus === 'APPROVED' && (
+                          <Image
+                            source={Images.APPROVE_SCREEN_BTN.APPROVE}
+                            style={{ width: 30, height: 30, marginRight: 5 ,marginTop: 5}}
+                          />
+                        )}
+                        {approval.ApproverDecisionStatus === 'RETURN' && (
+                          <Image
+                            source={Images.APPROVE_SCREEN_BTN.HISTORY}
+                            style={{ width: 30, height: 30, marginRight: 5 ,marginTop: 5}}
+                          />
+                        )}
+                        {approval.ApproverDecisionStatus !== 'APPROVED' && approval.ApproverDecisionStatus !== 'RETURN' && (
+                          <Image
+                            source={Images.BUTTONS.SKIP}
+                            style={{ width: 30, height: 30, marginRight: 5 ,marginTop: 5}}
+                          />
+                        )}
+                      </View>
+                    </View>
+                    <View style={{ alignItems: 'center' , flexDirection: "row" }}>
+                      <Text style={[styles.add, { width: "30%", borderLeftWidth: 0 }]}>By</Text>
+                      <Text style={[styles.add, { width: "50%" }]}>
+                        {approval.ApproverName}
+                      </Text>
+                    </View>
+                    <View style={{ width: "100%", flexDirection: "row" }}>
+                      <Text style={[styles.add, { width: "30%", borderLeftWidth: 0 }]}>
+                        Remarks
+                      </Text>
+                      <Text style={[styles.add, { width: "70%" }]}>
+                        {approval.ApproverRemarks}
+                      </Text>
+                    </View>
+                  </LinearGradient>
+                  <View style={{ marginBottom: 10 }} />
+                </View>
+              ))}
+             <View style={{ flexDirection: "row", justifyContent: "flex-end", marginRight: 10 }}>
+                {!showFullHistory && (
+                  <TouchableOpacity onPress={handleShowFullHistory}>
+                    <Text style={{ textDecorationLine: "underline", fontWeight: "bold", color: Colors.BLUE }}>...Show Full Approval History</Text>
+                  </TouchableOpacity>
+                )}
+                {showFullHistory && (
+                  <TouchableOpacity onPress={handleShowFirstIndex}>
+                    <Text style={{ textDecorationLine: "underline", fontWeight: "bold", color: Colors.BLUE }}>...Show Less</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
+          )}
+        </View>
 
                 {!files || files.length === 0 ? (
                 <View style={{alignItems: 'flex-start'}}>
-                  <Text style={{ color: Colors.BLACK ,marginTop:10,}}>No files Attached</Text>
+                  <Text style={{ color: 'gray', fontWeight: 'bold', fontSize: 17 ,marginTop:10,}}>* No files Attached *</Text>
                 </View>
                 ) : (
                   <View style={{ width: "100%" }}>
@@ -487,69 +527,24 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                         Files Attached ({files.length})-
                       </Text>
                     </View>
-                    <GestureScrollView
-                      horizontal={true}
-                      nestedScrollEnabled={true}
-                      showsHorizontalScrollIndicator={false}
-                      //contentContainerStyle={{ flexDirection: 'row' }}
-                      style={[styles.files]}
-                      pagingEnabled={true}
-                    >
-                      {files.map((item) => (
-                        <View style={styles.infiles} key={item.FileName}>
-                          <TouchableOpacity
-                            onPress={() => fileprev(item.FilePath)}
-                          >
-                            {item.ContentType == "application/pdf" ? (
-                              <Image
-                                source={Images.ICONS.PDF}
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                }}
-                              />
-                            ) : item.ContentType == "application/msword" ? (
-                              <Image
-                                source={Images.ICONS.WORD}
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                }}
-                              />
-                            ) : item.ContentType == "application/png" ||
-                              item.ContentType == "application/jpg" ? (
-                              <Image
-                                source={Images.ICONS.IMAGE}
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                }}
-                              />
-                            ) : item.ContentType == "application/vnd.ms-excel" ? (
-                              <Image
-                                source={Images.ICONS.SHEETS}
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                }}
-                              />
-                            ) : (
-                              <Image
-                                source={Images.ICONS.UNKNOWN}
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                }}
-                              />
-                            )}
+                     <View style={styles.files}>
+                       {files.map((item) => (
+                         <View key={item.FileName} style={styles.infiles}>
+                           <TouchableOpacity onPress={() => fileprev(item.FilePath)}>
+                             <View style={styles.fileContent}>
+                               <Image
+                                 source={contentTypeImages[item.ContentType] || defaultImage}
+                                 style={styles.fileIcon}
+                               />
+                               <Text numberOfLines={1} style={styles.fileName}>
+                                 {item.FileName}
+                               </Text>
+                             </View>
+                           </TouchableOpacity>
+                         </View>
+                       ))}
+                     </View>
 
-                            <Text numberOfLines={4} style={{ color: Colors.BLACK }}>
-                              {item.FileName}
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      ))}
-                    </GestureScrollView>
                   </View>
                 )}
 
@@ -632,7 +627,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                         ReturnToEmpcode: item.ApproverEmpcode,
                         Decision: "Ret",
                       }),
-                       handlereturnbtn()
+                       handlereturnbtn(item.ApproverName)
                     )}
                   >
                     <Text
@@ -687,7 +682,7 @@ export default function Form({ DocumentNo, ApprovalCategory }) {
                 onPress={() => {
                   if (isRemarksFilled) {
                     Alert.alert(
-                      "Sure you want to APPROVE??",
+                      "Sure you want to APPROVE ?",
                       null,
                       [
                         {
@@ -862,25 +857,37 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 5,
     borderColor: Colors.BLACK,
-    borderWidth:1,
+    borderWidth: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   infiles: {
-    width: "100%",
+    width: 'auto',
     alignItems: "center",
-    //marginHorizontal: 0,
-    textAlign: "center",
-    marginTop: 8,
-    marginBottom: 5,
-    marginLeft: 15,
-    marginRight: 15,
-    //flexWrap: 'wrap', // Enables text wrapping
+    margin: 5,
+  },
+  fileContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  fileIcon: {
+    width: 25,
+    height: 25,
+    marginRight: 5,
+  },
+  fileName: {
+    color: Colors.BLACK,
+    paddingRight: 25,
     flexShrink: 1,
-    maxWidth: '20%', // Adjust the maximum width as needed
   },
   re: {
     marginTop: 20,
     width: "100%",
-    //marginBottom:5,
+    marginBottom:5,
   },
   rema: {
     borderWidth: 1,

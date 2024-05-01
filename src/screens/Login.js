@@ -56,10 +56,6 @@ function Login({ navigation }) {
     // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
     Orientation.lockToPortrait();
 
-    // Clean up the effect when the component unmounts
-    return () => {
-      Orientation.lockToPortrait();; // Unlock all orientations when the component unmounts
-    };
   }, []);
 
     useEffect(() => {

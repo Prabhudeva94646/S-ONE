@@ -12,7 +12,7 @@ export default Images = {
   APPROVE_SCREEN_BTN: {
     APPROVE: require("../assets/Images/Approved.png"),
     REJECT: require("../assets/Images/Reject.png"),
-    HISTORY: require("../assets/Images/History.png"),
+    HISTORY: require("../assets/Images/undo.png"),
   },
   BUTTONS: {
     BACK_BTN: require("../assets/Images/Back_Btn.png"),
@@ -23,6 +23,7 @@ export default Images = {
     IMAGE: require("../assets/Icons/Image.png"),
     SHEETS: require("../assets/Icons/Sheets.png"),
     WORD: require("../assets/Icons/Word.png"),
+    EML: require("../assets/Icons/eml.png"),
     UNKNOWN: require("../assets/Icons/Unknown.png"),
   },
 };

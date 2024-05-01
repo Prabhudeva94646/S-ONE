@@ -14,6 +14,8 @@ import Header from "../components/headers/Header";
 import apiCaller from "../api/APICaller";
 import Loading from "../components/loading/Loading";
 import Colors from "../utils/Colors";
+import Orientation from 'react-native-orientation-locker';
+import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect hook
 
 export default function Home({ navigation }) {
   useEffect(() => {
@@ -41,35 +43,47 @@ export default function Home({ navigation }) {
   const [isLoading, setIsLoading] = useState();
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      await apiCaller
-        .HomeData()
-        .then((resData) => {
-          if (resData) {
-            setData(resData.data);
-            setCompleteData(resData.data);
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
-          setRefreshing(false);
-        });
-    };
-    fetchData();
-  }, [refreshing]);
+  const fetchData = async () => {
+    setIsLoading(true);
+    await apiCaller
+      .HomeData()
+      .then((resData) => {
+        if (resData) {
+          setData(resData.data);
+          setCompleteData(resData.data);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setRefreshing(false);
+      });
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
 
   useEffect(() => {
-    setData(
-      completeData.filter((item) =>
-        item.ApprovalCategory.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    );
-  }, [searchQuery]);
+    // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
+    Orientation.lockToPortrait();
+  }, []);
+
+    useEffect(() => {
+      if (completeData && completeData.length > 0) {
+        setData(
+          completeData.filter((item) =>
+            item.ApprovalCategory.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        );
+      }
+    }, [searchQuery, completeData]);
+
 
   const onRefresh = () => {
     setRefreshing(true);
+    fetchData();
   };
 
   const toggleDrawer = () => {
@@ -91,7 +105,7 @@ export default function Home({ navigation }) {
         toggleMenu={toggleDrawer}
       />
       {data ? (
-      <ScrollView>
+      <View>
         <SwipeableFlatList
           data={data}
           contentContainerStyle={{ paddingBottom: 25 }}
@@ -101,7 +115,9 @@ export default function Home({ navigation }) {
               number={item.PendingCount}
               nt={"BoxList"}
               fs={26}
-              prop={{ Category: item.ApprovalCategory }}
+              prop={{ Category: item.ApprovalCategory,
+               VERTICAL_NAME: null,
+               }}
             />
           )}
           refreshControl={
@@ -114,7 +130,7 @@ export default function Home({ navigation }) {
             height: Dimensions.get("window").height,
           }}
         />
-        </ScrollView>
+        </View>
       ) : (
         <Text
           style={{

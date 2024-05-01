@@ -7,6 +7,7 @@ import MainHeader from "../components/headers/MainHeader";
 import Row from "../components/listcmp/Row";
 import Heading from "../components/listcmp/Heading";
 import Loading from "../components/loading/Loading";
+import Orientation from 'react-native-orientation-locker';
 
 export default function List() {
   const navigation = useNavigation();
@@ -62,6 +63,11 @@ export default function List() {
   const onRefresh = () => {
     setRefreshing(true);
   };
+
+      useEffect(() => {
+        // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
+        Orientation.lockToPortrait();
+      }, []);
 
   if (isLoading) {
     return (

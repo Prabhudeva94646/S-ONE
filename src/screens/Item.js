@@ -19,7 +19,7 @@ export default function Item() {
     );
     return () => backHandler.remove();
   }, []);
-
+{/*
   useEffect(() => {
     // Unlock screen orientation when the component mounts
     Orientation.unlockAllOrientations();
@@ -29,6 +29,7 @@ export default function Item() {
       Orientation.lockToPortrait(); // Lock orientation to portrait when component unmounts
     };
   }, []);
+*/}
 
   return (
     <ScrollView>

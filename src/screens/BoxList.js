@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, BackHandler, StyleSheet } from 'react-native';
 import MainHeader from '../components/headers/MainHeader';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect hook
 import TopBox from '../components/arrowscreen/TopBox';
 import Loading from '../components/loading/Loading';
 import HomeBox from '../components/homecmp/BoxListBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SwipeableFlatList from 'react-native-swipeable-list';
+import Orientation from 'react-native-orientation-locker';
 
 const TOKEN = 'uBylwJMQexOO6Wd3YSzQMspiZOSgyX3MV38nHDXtUmxu0MGESIEO26bblqwR1GrrFb3dZZuu6f7A66inioy1snV116crhfDo5gZ9TDP4nkTV0LgphjJMhB9rqcm4WcnZ';
 
@@ -68,6 +69,11 @@ export default function BoxList() {
   };
 
   useEffect(() => {
+    // Lock the screen orientation to 'PORTRAIT' mode when the component mounts
+    Orientation.lockToPortrait();
+  }, []);
+
+  useEffect(() => {
     if (route.params && route.params.department) {
       const filteredData = data.filter(
         item =>
@@ -114,6 +120,13 @@ export default function BoxList() {
     }
   };
 
+  // Use useFocusEffect to refetch data whenever the screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, [])
+  );
+
   if (isLoading) {
     return <Loading />;
   }
@@ -121,7 +134,6 @@ export default function BoxList() {
   return (
     <View>
       <MainHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <TopBox name={route.params.Category} />
       <SwipeableFlatList
         data={filteredData}
         contentContainerStyle={styles.flatListContainer}
@@ -138,5 +150,6 @@ const styles = StyleSheet.create({
   flatListContainer: {
     paddingTop: 25,
     marginBottom: 'auto',
+    paddingBottom: 150,
   },
 });
