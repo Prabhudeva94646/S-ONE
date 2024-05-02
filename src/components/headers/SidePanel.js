@@ -101,6 +101,12 @@ export default function SideBar(props) {
         labelStyle={styles.drawerItemLabel}
       />
       <DrawerItem
+        label="History Info"
+        onPress={() => props.navigation.navigate('History', { screen: 'History' })}
+        icon={({ color, size }) => <Icon name="history" size={size} color={color} />}
+        labelStyle={styles.drawerItemLabel}
+      />
+      <DrawerItem
         label="Log Out"
         onPress={handleLogout}
         icon={({ color, size }) => <Icon name="sign-out" size={size} color={color} />}

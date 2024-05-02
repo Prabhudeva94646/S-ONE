@@ -1,5 +1,3 @@
-// App.js
-
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -9,14 +7,12 @@ import Login from "./screens/Login.js";
 import SplashScreen from "./screens/SplashScreen.js";
 import List from "./screens/List.js";
 import BoxList from "./screens/BoxList.js";
-import BoxList2 from "./screens/BoxList2.js";
 import List_from_BoxList from "./screens/List_from_BoxList.js";
 import ApprovalDetail from "./screens/ApprovalDetail.js";
-import Response from "./screens/Response.js";
-import DrawerItems from "./Constants/DrawerItems.js";
 import SideBar from "./components/headers/SidePanel.js";
 import DecisionScreen from "./components/loading/DecisionScreen.js";
 import Item from "./screens/Item.js";
+import HistoryData from "./screens/History.js";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -43,13 +39,11 @@ const MainStack = () => (
 const SecondaryStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={Home} />
-
+    <Stack.Screen name="History" component={HistoryData} />
     <Stack.Screen name="BoxList" component={BoxList} />
-    <Stack.Screen name="BoxList2" component={BoxList2} />
     <Stack.Screen name="List_from_BoxList" component={List_from_BoxList} />
     <Stack.Screen name="ApprovalDetail" component={ApprovalDetail} />
     <Stack.Screen name="Item" component={Item} />
-    <Stack.Screen name="Response" component={Response} />
     <Stack.Screen name="DecisionScreen" component={DecisionScreen} />
   </Stack.Navigator>
 );

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, BackHandler, StyleSheet } from 'react-native';
 import MainHeader from '../components/headers/MainHeader';
 import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect hook
-import TopBox from '../components/arrowscreen/TopBox';
 import Loading from '../components/loading/Loading';
 import HomeBox from '../components/homecmp/BoxListBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';

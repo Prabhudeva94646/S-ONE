@@ -236,12 +236,13 @@ function Login({ navigation }) {
                             style.outbox,
                             { justifyContent: 'space-around', marginTop: 5 },
                         ]}>
-                        <View style={{ flexDirection: 'row' }}>
+                        <View >
                             <Text
+                            //adjustsFontSizeToFit={false}
                                 style={{
                                     color: Colors.GRAY,
                                     fontSize: 11,
-                                    marginRight: 5,
+                                    //marginRight: 5,
                                     lineHeight: 25,
                                     fontWeight: 500,
                                 }}>
@@ -252,22 +253,23 @@ function Login({ navigation }) {
                                     color: Colors.GRAY,
                                     fontSize: 22,
                                     lineHeight: 25,
-                                    paddingRight: 15,
+                                    //paddingRight: 15,
                                 }}>
-                                <Text style={{ fontWeight: 800 }}>S-</Text>ONE
-                            </Text>
+                                <Text style={{ fontWeight: 800 }}> S-</Text>ONE  </Text>
+                        </View>
+                        <View style={{}}>
+                        <Text style={{fontSize: 20, fontWeight: 800}}>|</Text>
                         </View>
                         <View>
                             <Text
                                 style={{
                                     color: Colors.GRAY,
-                                    borderLeftWidth: 2,
+                                    //borderLeftWidth: 2,
                                     fontSize: 15,
-                                    paddingLeft: 10,
+                                    //paddingLeft: 10,
                                     fontWeight: 500,
                                     lineHeight: 25,
-                                }}>
-                                Innovation in Motion
+                                }}>   Innovation in Motion
                             </Text>
                         </View>
                     </View>
