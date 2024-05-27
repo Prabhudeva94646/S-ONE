@@ -52,6 +52,7 @@ export default function SideBar(props) {
       await AsyncStorage.removeItem('rememberedPassword');
       await AsyncStorage.removeItem('employeeCode');
       await AsyncStorage.removeItem('profileImage'); // Clear profile image on logout
+      await AsyncStorage.removeItem('UserApprovalHistory');
       props.navigation.navigate('Login');
     } catch (error) {
       console.error('Error clearing cache:', error);

@@ -68,6 +68,7 @@ const DrawerStack = () => (
     }}
   >
     <Drawer.Screen name="Home" component={SecondaryStack} />
+    <Drawer.Screen name="History" component={SecondaryStack} />
   </Drawer.Navigator>
 );
 

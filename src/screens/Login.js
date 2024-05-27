@@ -112,6 +112,8 @@ function Login({ navigation }) {
                 if (userData.isChecked) {
                     await AsyncStorage.setItem('rememberedEmployeeCode', userData.empcode);
                     await AsyncStorage.setItem('rememberedPassword', userData.psw);
+                    const myArray = [];
+                    await AsyncStorage.setItem('UserApprovalHistory', JSON.stringify(myArray));
                 }
                 // Retrieve employee name from AsyncStorage
                 const employeeName = await AsyncStorage.getItem('employeeName');
@@ -236,47 +238,45 @@ function Login({ navigation }) {
                             style.outbox,
                             { justifyContent: 'space-around', marginTop: 5 },
                         ]}>
-                        <View >
-                            <Text
-                            //adjustsFontSizeToFit={false}
-                                style={{
-                                    color: Colors.GRAY,
-                                    fontSize: 11,
-                                    //marginRight: 5,
-                                    lineHeight: 25,
-                                    fontWeight: 500,
-                                }}>
-                                Powered by
-                            </Text>
-                            <Text
-                                style={{
-                                    color: Colors.GRAY,
-                                    fontSize: 22,
-                                    lineHeight: 25,
-                                    //paddingRight: 15,
-                                }}>
-                                <Text style={{ fontWeight: 800 }}> S-</Text>ONE  </Text>
-                        </View>
-                        <View style={{}}>
-                        <Text style={{fontSize: 20, fontWeight: 800}}>|</Text>
-                        </View>
-                        <View>
-                            <Text
-                                style={{
-                                    color: Colors.GRAY,
-                                    //borderLeftWidth: 2,
-                                    fontSize: 15,
-                                    //paddingLeft: 10,
-                                    fontWeight: 500,
-                                    lineHeight: 25,
-                                }}>   Innovation in Motion
-                            </Text>
-                        </View>
-                    </View>
-                </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text
+                style={{
+                  color: Colors.GRAY,
+                  fontSize: 11,
+                  marginRight: 5,
+                  lineHeight: 25,
+                  fontWeight: 500,
+                }}>
+                Powered by
+              </Text>
+              <Text
+                style={{
+                  color: Colors.GRAY,
+                  fontSize: 22,
+                  lineHeight: 25,
+                  paddingRight: 15,
+                }}>
+                <Text style={{fontWeight: 800}}>S-</Text>ONE
+              </Text>
             </View>
+            <View>
+              <Text
+                style={{
+                  color: Colors.GRAY,
+                  borderLeftWidth: 2,
+                  fontSize: 15,
+                  paddingLeft: 10,
+                  fontWeight: 500,
+                  lineHeight: 25,
+                }}>
+                Innovation in Motion
+              </Text>
+            </View>
+          </View>
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 
 export default Login;
